@@ -22,3 +22,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Cursor rules
+.rules/.cursorrules
+
+# Resume files

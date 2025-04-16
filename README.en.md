@@ -1,36 +1,61 @@
-# 简历系统
+# Personal Resume System
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
+## System Purpose
 
-#### Software Architecture
-Software architecture description
+The Personal Resume System aims to help job seekers create, manage, and optimize professional resumes. The system adopts a modular design, utilizing structured processes and professional optimization suggestions to enable users to create authentic, specific, professional, and competitive personal resumes.
 
-#### Installation
+This system does not rely on a frontend interface or database, but instead uses a series of markdown documents and standardized processes to help users complete the entire process from information collection to resume optimization.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## System Planning
 
-#### Instructions
+### File Structure
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- `README.md` - System description document (Chinese)
+- `README.en.md` - System description document (English)
+- `system_manual.md` - Detailed system user manual
+- `resume_template.md` - Resume information collection template
+- `resume_draft.md` - Resume draft (generated file)
+- `resume_final.md` - Final resume document (generated file)
+- `.rules/.cursorrules` - Resume optimization expert prompting rules
 
-#### Contribution
+### Workflow
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+1. **Information Collection Stage**
+   - Complete the `resume_template.md` file
+   - Ensure all key information is authentic, specific, and complete
 
+2. **Content Optimization Stage**
+   - Generate a draft based on template information in `resume_draft.md`
+   - Optimize content according to professional resume standards
+   - Ensure each description is specific, quantified, and highlights achievements
 
-#### Gitee Feature
+3. **Format Adjustment Stage**
+   - Create the final version in `resume_final.md`
+   - Adjust layout, format, and highlight key points
+   - Ensure the overall resume is concise and professional
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+4. **Export and Application Stage**
+   - Export to PDF or other formats as needed
+   - Create different versions for different positions
+
+## Core Principles
+
+- **Authenticity** - All content must be truthful, without fabrication or exaggeration
+- **Specificity** - Use data and facts, avoid vague statements
+- **Relevance** - Content highly matches the target position
+- **Professionalism** - Use industry terminology and standardized expressions
+- **Conciseness** - Express content concisely, highlight key points
+
+## Usage Instructions
+
+1. Read `system_manual.md` for detailed system instructions
+2. Fill out the `resume_template.md` file according to the template
+3. Improve resume content based on optimization suggestions
+4. Export the final resume document
+
+## Updates and Maintenance
+
+This system will be continuously optimized and updated, including but not limited to:
+- Updates and expansion of resume templates
+- Iteration and improvement of optimization rules
+- Support for diverse export formats
