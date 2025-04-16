@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段胜炜的个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --background-color: #e6eef8;
+            --text-color: #343a40;
+            --light-gray: #e9ecef;
+            --border-color: #dee2e6;
+            --success-color: #198754;
+            --skill-bg: #e6eef8;
+            --skill-shadow-light: #ffffff;
+            --skill-shadow-dark: #c8d5e6;
+            --neu-radius: 16px;
+            --text-color-secondary: #6c757d;
+            --card-background: #f8f9fa;
+            --neu-shadow-dark: #c8d5e6;
+            --neu-shadow-light: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--background-color);
+            border-radius: var(--neu-radius);
+            overflow: hidden;
+            box-shadow: 20px 20px 40px var(--skill-shadow-dark), 
+                       -20px -20px 40px var(--skill-shadow-light);
+        }
+        
+        header {
+            background: linear-gradient(145deg, var(--primary-color), #3d8bfd);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: var(--neu-radius) var(--neu-radius) 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255,255,255,0.15);
+            padding: 8px 15px;
+            border-radius: 30px;
+            box-shadow: inset 3px 3px 5px rgba(0,0,0,0.1), 
+                        inset -3px -3px 5px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: inset 4px 4px 6px rgba(0,0,0,0.15), 
+                        inset -4px -4px 6px rgba(255,255,255,0.15);
+        }
+        
+        section {
+            padding: 35px;
+            margin: 25px;
+            border-radius: var(--neu-radius);
+            background-color: var(--background-color);
+            box-shadow: 8px 8px 16px var(--skill-shadow-dark), 
+                       -8px -8px 16px var(--skill-shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background-color);
+            border-radius: 50%;
+            box-shadow: 4px 4px 8px var(--skill-shadow-dark), 
+                       -4px -4px 8px var(--skill-shadow-light);
+            color: var(--primary-color);
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to right, var(--primary-color), transparent);
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 10px;
+            background-color: var(--background-color);
+            box-shadow: 4px 4px 8px var(--skill-shadow-dark), 
+                       -4px -4px 8px var(--skill-shadow-light);
+            display: inline-block;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: var(--background-color);
+            box-shadow: inset 4px 4px 8px var(--skill-shadow-dark), 
+                        inset -4px -4px 8px var(--skill-shadow-light);
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+        
+        ul li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+            top: 0;
+            font-size: 1.2rem;
+        }
+                
+        .experience-item, .project-item {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: var(--neu-radius);
+            background-color: var(--background-color);
+            box-shadow: 8px 8px 16px var(--skill-shadow-dark), 
+                       -8px -8px 16px var(--skill-shadow-light);
+            transition: all 0.4s ease;
+        }
+        
+        .experience-item:hover, .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 20px var(--skill-shadow-dark), 
+                       -12px -12px 20px var(--skill-shadow-light);
+        }
+        
+        .job-title, .project-header {
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(13, 110, 253, 0.1);
+        }
+        
+        /* 美化日期显示 */
+        .date {
+            color: var(--text-color-secondary);
+            font-size: 0.9em;
+            font-weight: 500;
+            padding: 5px 10px 5px 8px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, var(--background-color), var(--card-background));
+            box-shadow: 3px 3px 6px var(--neu-shadow-dark), 
+                        -2px -2px 5px var(--neu-shadow-light);
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        
+        .date svg, .project-date svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            fill: var(--accent-color);
+        }
+        
+        .responsibilities, .achievements {
+            margin-top: 15px;
+        }
+        
+        .section-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background-color: var(--background-color);
+            box-shadow: 3px 3px 6px var(--skill-shadow-dark), 
+                       -3px -3px 6px var(--skill-shadow-light);
+        }
+                
+        .project-background {
+            margin-bottom: 20px;
+        }
+        
+        .tech-stack {
+            background-color: var(--background-color);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: inset 4px 4px 8px var(--skill-shadow-dark), 
+                        inset -4px -4px 8px var(--skill-shadow-light);
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--background-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            box-shadow: 3px 3px 5px var(--skill-shadow-dark), 
+                       -3px -3px 5px var(--skill-shadow-light);
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 6px var(--skill-shadow-dark), 
+                       -4px -4px 6px var(--skill-shadow-light);
+        }
+        
+        .project-scale {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: var(--background-color);
+            box-shadow: inset 3px 3px 6px var(--skill-shadow-dark), 
+                        inset -3px -3px 6px var(--skill-shadow-light);
+        }
+        
+        .project-role {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .challenges {
+            margin-top: 20px;
+        }
+        
+        .challenge-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .results {
+            margin-top: 20px;
+        }
+        
+        .self-evaluation {
+            background-color: var(--background-color);
+            padding: 25px;
+            border-radius: var(--neu-radius);
+            font-style: italic;
+            position: relative;
+            box-shadow: inset 6px 6px 12px var(--skill-shadow-dark), 
+                        inset -6px -6px 12px var(--skill-shadow-light);
+            line-height: 1.8;
+        }
+        
+        .self-evaluation:before {
+            content: '\201C';
+            font-size: 80px;
+            position: absolute;
+            left: 15px;
+            top: -15px;
+            color: rgba(13, 110, 253, 0.1);
+        }
+        
+        .other-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            border-radius: var(--neu-radius);
+            background-color: var(--background-color);
+            box-shadow: 6px 6px 12px var(--skill-shadow-dark), 
+                       -6px -6px 12px var(--skill-shadow-light);
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 16px var(--skill-shadow-dark), 
+                       -8px -8px 16px var(--skill-shadow-light);
+        }
+        
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--background-color);
+            box-shadow: 4px 4px 8px var(--skill-shadow-dark), 
+                       -4px -4px 8px var(--skill-shadow-light);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 20px;
+                margin: 15px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .job-title, .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .skills-grid,
+            .other-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .experience-item, .project-item, .info-item {
+                padding: 15px;
+            }
+        }
+
+        .skill-category {
+            margin-bottom: 35px;
+        }
+
+        .skill-category h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background-color: var(--background-color);
+            box-shadow: 4px 4px 8px var(--skill-shadow-dark), 
+                        -4px -4px 8px var(--skill-shadow-light);
+        }
+
+        .skill-category h4:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to right, var(--primary-color), transparent);
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-item {
+            background-color: var(--skill-bg);
+            border-radius: var(--neu-radius);
+            padding: 20px;
+            box-shadow: 8px 8px 16px var(--skill-shadow-dark), 
+                       -8px -8px 16px var(--skill-shadow-light);
+            position: relative;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            box-shadow: 12px 12px 20px var(--skill-shadow-dark), 
+                       -12px -12px 20px var(--skill-shadow-light);
+            transform: translateY(-5px);
+        }
+        
+        /* 回到最简单的卡片样式，解决卡片互相遮挡问题 */
+        .skill-tooltip {
+            position: absolute; 
+            width: 300px;
+            background-color: var(--background-color);
+            border-radius: var(--neu-radius);
+            padding: 15px;
+            box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.2),
+                        -8px -8px 16px rgba(255, 255, 255, 0.8);
+            z-index: 99999; 
+            top: -220px; /* 增加向上的距离，避免遮挡 */
+            opacity: 0;
+            visibility: hidden;
+            display: none; 
+            transition: opacity 0.3s ease;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+            pointer-events: none; /* 防止卡片阻止下方元素的鼠标事件 */
+        }
+        
+        /* 左侧卡片 */
+        .skill-tooltip.left {
+            right: -30px; /* 增加距离，避免重叠 */
+            left: auto;
+        }
+        
+        /* 右侧卡片 */
+        .skill-tooltip.right {
+            left: -30px; /* 增加距离，避免重叠 */
+            right: auto;
+        }
+        
+        /* 简单的显示规则 */
+        .skill-item:hover .skill-tooltip {
+            opacity: 1;
+            visibility: visible;
+            display: block;
+        }
+
+        /* 调整技能项的相对位置，使卡片有足够间距 */
+        .skills-container .skill-item {
+            position: relative;
+            margin: 10px 5px; /* 增加间距 */
+            z-index: 1; /* 正常层级 */
+        }
+        
+        /* 当鼠标悬停时提高z-index确保显示在上方 */
+        .skills-container .skill-item:hover {
+            z-index: 1000;
+        }
+        
+        .skill-tooltip h4 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.1rem; /* 加大标题字体 */
+            font-weight: bold;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(13, 110, 253, 0.3); /* 加深边框颜色 */
+        }
+        
+        .skill-tooltip .project {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(13, 110, 253, 0.05); /* 添加淡蓝色背景 */
+            box-shadow: inset 3px 3px 7px var(--skill-shadow-dark),
+                        inset -3px -3px 7px var(--skill-shadow-light);
+        }
+        
+        .skill-tooltip .project-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1rem; /* 加大项目名称字体 */
+        }
+        
+        .skill-tooltip .project-desc {
+            font-size: 0.9rem; /* 加大描述字体 */
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--skill-bg);
+            box-shadow: inset 4px 4px 8px var(--skill-shadow-dark), 
+                        inset -4px -4px 8px var(--skill-shadow-light);
+            margin-right: 12px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .skill-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .skill-level {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: inset 2px 2px 5px var(--skill-shadow-dark), 
+                       inset -2px -2px 5px var(--skill-shadow-light);
+        }
+
+        .level-expert {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: var(--primary-color);
+        }
+
+        .level-proficient {
+            background-color: rgba(25, 135, 84, 0.1);
+            color: var(--success-color);
+        }
+
+        .level-familiar {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: var(--secondary-color);
+        }
+
+        .skill-description {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            padding: 12px;
+            background-color: var(--skill-bg);
+            border-radius: 10px;
+            box-shadow: inset 3px 3px 7px var(--skill-shadow-dark), 
+                        inset -3px -3px 7px var(--skill-shadow-light);
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            width: 250px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            text-align: left;
+            border-radius: var(--neu-radius);
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+            transform: translateY(10px);
+            box-shadow: 8px 8px 16px var(--skill-shadow-dark), 
+                       -8px -8px 16px var(--skill-shadow-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            pointer-events: none;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: var(--background-color) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-on-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-on-hover:hover {
+            color: var(--primary-color);
+            text-shadow: 1px 1px 3px rgba(13, 110, 253, 0.2);
+        }
+
+        /* 新增技能卡片样式 */
+        #skill-popup-container {
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .skill-popup {
+            position: absolute;
+            width: 350px;
+            background-color: var(--background-color);
+            border-radius: var(--neu-radius);
+            padding: 20px;
+            box-shadow: 12px 12px 24px var(--skill-shadow-dark),
+                       -12px -12px 24px var(--skill-shadow-light);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            pointer-events: auto;
+        }
+
+        .skill-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .skill-popup h4 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-size: 1rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(13, 110, 253, 0.1);
+        }
+
+        .skill-popup .project-link {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: var(--background-color);
+            box-shadow: inset 3px 3px 7px var(--skill-shadow-dark),
+                        inset -3px -3px 7px var(--skill-shadow-light);
+        }
+
+        .skill-popup .project-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .skill-popup .problem-solved {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        /* 箭头样式 */
+        .arrow-left {
+            position: absolute;
+            left: -20px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid var(--background-color);
+            display: none;
+        }
+
+        .arrow-right {
+            position: absolute;
+            right: -20px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid var(--background-color);
+            display: none;
+        }
+        
+        /* 项目日期样式 */
+        .project-date {
+            color: var(--text-color-secondary);
+            font-size: 0.9em;
+            font-weight: 500;
+            padding: 5px 10px 5px 8px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, var(--background-color), var(--card-background));
+            box-shadow: 3px 3px 6px var(--neu-shadow-dark), 
+                        -2px -2px 5px var(--neu-shadow-light);
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .project-date svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            fill: var(--accent-color);
+        }
+        
+        /* 调整职位标题和日期的布局 */
+        .job-title {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .job-title span:first-child {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--text-color-primary);
+        }
+        
+        /* 添加打印按钮样式 */
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, var(--background-color), var(--card-background));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 5px 5px 10px var(--neu-shadow-dark), 
+                        -3px -3px 8px var(--neu-shadow-light);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 7px 7px 15px var(--neu-shadow-dark), 
+                        -4px -4px 10px var(--neu-shadow-light);
+        }
+        
+        .print-button:active {
+            transform: translateY(0);
+            box-shadow: inset 3px 3px 5px var(--neu-shadow-dark), 
+                        inset -2px -2px 5px var(--neu-shadow-light);
+        }
+        
+        .print-button svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-color);
+        }
+        
+        /* 针对打印的样式优化 */
+        @media print {
+            /* 隐藏页眉和页脚的所有信息 */
+            @page {
+                margin: 0;
+                size: A4;
+            }
+            
+            /* 针对Webkit浏览器(Chrome, Safari等) */
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            html, body {
+                width: 210mm;
+                height: 297mm;
+            }
+            
+            /* 移除所有页眉页脚的内容 */
+            html {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            body {
+                background-color: white !important;
+                color: black !important;
+                font-size: 12pt;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* 隐藏浏览器自动添加的页眉页脚 */
+            body::before, body::after {
+                display: none !important;
+            }
+            
+            /* 其他打印样式 */
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                background-color: white !important;
+            }
+            
+            .print-button {
+                display: none !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                color: black !important;
+                page-break-after: avoid;
+            }
+            
+            section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                margin: 0 !important;
+                padding: 10px 0 !important;
+            }
+            
+            .contact-item, .skill-item, .project-item, .experience-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            .date, .project-date {
+                color: #555 !important;
+                background: none !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+            }
+            
+            ul {
+                margin: 5px 0 !important;
+            }
+            
+            li {
+                margin-bottom: 3px !important;
+            }
+            
+            .skill-tooltip {
+                display: none !important;
+            }
+            
+            /* 避免URL显示 */
+            a {
+                text-decoration: none !important;
+                color: black !important;
+            }
+            
+            /* 移除一些不必要的间距和装饰 */
+            .header, section {
+                padding: 5mm !important;
+            }
+            
+            .section-label {
+                background: none !important;
+                box-shadow: none !important;
+                color: #333 !important;
+                padding: 0 5px !important;
+            }
+            
+            .tag {
+                background: none !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+                color: #333 !important;
+            }
+        }
+
+        /* Github/Gitee 链接样式 */
+        .repo-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            background: linear-gradient(145deg, var(--background-color), var(--card-background));
+            border-radius: 30px;
+            box-shadow: 3px 3px 7px var(--neu-shadow-dark), 
+                      -2px -2px 5px var(--neu-shadow-light);
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text-color-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .repo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 10px var(--neu-shadow-dark), 
+                      -3px -3px 7px var(--neu-shadow-light);
+        }
+        
+        .repo-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent-color);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: var(--text-color-secondary);
+        }
+        
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            .repo-link, .footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 添加项目仓库链接 -->
+    <a href="https://gitee.com/beipiao_boy/resume-system" class="repo-link" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        项目源码
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>段胜炜</h1>
+            <div class="subtitle">C++开发工程师（中级）</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>18651650978</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>dswcpp@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>江苏省南京市江宁区</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-git-alt"></i>
+                    <span><a href="https://gitee.com/beipiao_boy" style="color: white; text-decoration: none;">gitee.com/beipiao_boy</a></span>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2><i class="fas fa-user"></i> 基本信息</h2>
+            <ul>
+                <li><strong>性别：</strong>男</li>
+                <li><strong>出生年月：</strong>1997年2月28日</li>
+                <li><strong>求职意向：</strong>C++开发工程师（中级）</li>
+                <li><strong>期望薪资：</strong>20K-25K</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+            <h3>江西农业大学（2017年9月 - 2021年7月）</h3>
+            <ul>
+                <li><strong>专业：</strong>软件工程</li>
+                <li><strong>学历：</strong>本科</li>
+                <li><strong>GPA/排名：</strong>5/37</li>
+                <li><strong>主修课程：</strong>C/C++程序设计、Java 程序设计、数据结构、编译原理、软件工程、操作系统原理、数据库系统原理、计算机网络技术等</li>
+                <li><strong>获得奖项：</strong>多次荣获一等、二等奖学金、在全国C语言技能竞赛中荣获三等奖</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-code"></i> 专业技能</h2>
+            
+            <div class="skill-category">
+                <h4>编程语言</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                                <div class="skill-name">C/C++</div>
+                            </div>
+                            <div class="skill-level level-expert">精通</div>
+                        </div>
+                        <div class="skill-description">熟悉C++11/14/17标准，STL库，内存管理</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">使用C++开发核心功能模块，实现高效的数据处理和多线程操作，解决了实时数据处理瓶颈问题，使系统能够流畅处理超过15MB/s的实时数据流</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">营业厅智能运营管理平台</div>
+                                <div class="project-desc">使用C++开发底层驱动和通信模块，解决了不同硬件设备兼容性问题，支持100+终端设备同时接入，响应时间控制在150ms内</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fab fa-qt"></i></div>
+                                <div class="skill-name">Qt/C++</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">掌握信号槽机制、多线程编程、GUI开发</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">使用Qt/C++开发图形界面和信号处理模块，利用信号槽机制实现多组件通信，解决了跨平台兼容性和实时数据可视化问题，提升了检测效率30%</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">文字喷墨上位机系统</div>
+                                <div class="project-desc">采用Qt开发PCB文字喷墨系统UI界面，实现了用户友好的操作界面和高效的图像处理工作流，提高了标记准确性和工作效率</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+                                <div class="skill-name">嵌入式C/C++</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">具备嵌入式系统开发经验</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">在嵌入式环境中实现高效算法，设计模块化框架，优化内存使用和电量消耗，解决了资源受限设备上的性能瓶颈问题，实现了平均60ms的系统响应时间</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">RK3399系统移植</div>
+                                <div class="project-desc">在Ubuntu 20.04下搭建RK3399(aarch64-Linux-gnu-g++)交叉编译环境，成功移植关键系统组件，确保在嵌入式平台上稳定运行</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h4>开发框架/工具</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                                <div class="skill-name">网络编程</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">TCP/IP、Socket、HTTP、MQTT协议</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">营业厅智能运营管理平台</div>
+                                <div class="project-desc">设计并实现基于TCP/IP的设备通信和HTTP服务器，开发RESTful API接口，解决了大量终端设备并发连接和实时数据同步问题，支持100+终端设备同时接入</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">带电检测终端通信模块</div>
+                                <div class="project-desc">基于MQTT协议实现检测数据的实时传输与同步，确保数据在不稳定网络环境下的可靠传输，减少网络延迟带来的影响</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-usb"></i></div>
+                                <div class="skill-name">设备通信</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">USB/串口通信、RS485通信</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">设计实现RS485和USB通信协议，开发驱动层接口，实现了多类型检测设备（红外测温、超高频局放、暂态地电压等）的统一管理和数据采集，设备接入时间减少50%</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">柜外交互终端设备</div>
+                                <div class="project-desc">优化硬件驱动与上层应用通信机制，设计稳定的设备连接状态管理，将系统响应时间从平均100ms降至60ms，故障率降低约15%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
+                                <div class="skill-name">设计模式</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">状态机模式、生产者-消费者模式等</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">应用状态机和适配器模式设计红外成像模块的设备连接管理系统，解决了复杂系统状态管理问题；使用生产者-消费者模式优化数据流，提升了大量数据处理时的响应性能</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">柜外交互终端设备</div>
+                                <div class="project-desc">实现基于观察者模式的事件通知系统，使用单例模式管理共享资源，重构代码提高复用率20%，减少系统故障率约15%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h4>AI开发与应用</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                                <div class="skill-name">AI辅助编程</div>
+                            </div>
+                            <div class="skill-level level-expert">精通</div>
+                        </div>
+                        <div class="skill-description">使用GitHub Copilot、Cursor、Claude等工具高效生成和重构代码，降低重复性工作</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip left">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">使用AI工具辅助编写重复性代码，构建复杂算法框架，加速代码审查过程，减少30%开发时间；利用AI生成测试用例，提升代码质量和测试覆盖率</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">团队工作流优化</div>
+                                <div class="project-desc">在公司内部推广AI辅助开发实践，设计提示词工程方法，组织技术分享，帮助团队成员有效使用AI工具，团队整体效率提升约20%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                                <div class="skill-name">AI模型集成</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">在应用中集成GPT、Claude等大模型API，开发智能诊断系统和自动化测试工具</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip left">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测智能诊断系统</div>
+                                <div class="project-desc">集成GPT API实现设备故障智能诊断，开发自然语言处理接口解析设备状态数据，构建决策支持系统，诊断准确率达到85%以上，大幅减少人工干预</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">自动化测试框架</div>
+                                <div class="project-desc">开发基于AI的自动化测试生成系统，根据代码和需求自动生成测试用例，提高测试覆盖率40%，节省人工测试时间60%以上</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-comment-dots"></i></div>
+                                <div class="skill-name">Prompt工程</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">设计高效提示词，提高AI模型输出质量，解决特定领域技术问题</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip left">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">电力设备故障诊断系统</div>
+                                <div class="project-desc">设计专业领域提示词库，构建电力设备故障诊断专家系统，通过精确的提示工程引导AI正确理解电力设备特性和故障模式，准确率从70%提升至92%</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">代码优化与文档生成</div>
+                                <div class="project-desc">开发针对C++代码优化的专用提示词模板，自动化生成代码文档和注释，提高代码可读性和维护性，新团队成员上手时间缩短40%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h4>专业软件</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-camera"></i></div>
+                                <div class="skill-name">Halcon</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">图像处理、机器视觉、模式识别</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">文字喷墨Windows上位机系统</div>
+                                <div class="project-desc">使用Halcon实现PCB板Mark点定位功能，开发高精度的图像处理算法，提高定位准确性达到±0.05mm，满足高精度生产要求</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">自动缺陷检测系统</div>
+                                <div class="project-desc">基于Halcon开发的视觉检测模块，实现了PCB板缺陷的自动检测和分类，检测准确率达到95%，处理速度较手动检测提升200%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-eye"></i></div>
+                                <div class="skill-name">OpenCV</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">计算机视觉算法应用</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">文字喷墨Windows上位机系统</div>
+                                <div class="project-desc">使用OpenCV开发图像预处理和增强功能，实现了复杂背景下的文字识别和边缘检测，使系统能在不同光照条件下保持稳定的识别率</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">带电检测终端红外成像模块</div>
+                                <div class="project-desc">应用OpenCV处理红外热成像数据，开发温度异常检测算法，结合轮廓提取技术定位发热部位，使系统能准确识别设备异常发热点，提前预警潜在故障</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h4>其他技能</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-wave-square"></i></div>
+                                <div class="skill-name">信号处理</div>
+                            </div>
+                            <div class="skill-level level-proficient">熟练</div>
+                        </div>
+                        <div class="skill-description">FFT频谱分析、PRPS模式识别、实时数据采集</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">带电检测手持移动终端</div>
+                                <div class="project-desc">实现FFT频谱分析和PRPS图谱生成算法，开发TEV暂态地电压检测模块和UHF超高频数据处理流程，解决了电力设备状态诊断问题，提高检测效率30%</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">设备振动分析系统</div>
+                                <div class="project-desc">开发实时振动信号的频域分析算法，通过频谱特征提取识别设备异常运行模式，提前发现潜在故障，减少设备非计划停机时间达40%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                                <div class="skill-name">交叉编译</div>
+                            </div>
+                            <div class="skill-level level-familiar">了解</div>
+                        </div>
+                        <div class="skill-description">在Ubuntu下搭建RK3399交叉编译环境</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">营业厅智能运营管理平台</div>
+                                <div class="project-desc">在Ubuntu 20.04环境下搭建RK3399(aarch64-Linux-gnu-g++)交叉编译环境，成功编译并部署核心功能模块，解决了ARM平台的兼容性问题</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">嵌入式Linux系统开发</div>
+                                <div class="project-desc">针对特定硬件平台定制编译工具链，优化编译参数提高程序运行效率，程序性能相比通用编译提升约20%，内存占用减少15%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-title">
+                                <div class="skill-icon"><i class="fas fa-language"></i></div>
+                                <div class="skill-name">英语</div>
+                            </div>
+                            <div class="skill-level level-proficient">良好</div>
+                        </div>
+                        <div class="skill-description">能阅读英文技术文档，进行简单交流</div>
+                        
+                        <!-- 添加技能卡片 -->
+                        <div class="skill-tooltip right">
+                            <h4>项目应用</h4>
+                            <div class="project">
+                                <div class="project-name">技术文档阅读与国际交流</div>
+                                <div class="project-desc">独立阅读英文技术规范和API文档，跟踪国际前沿技术动态；参与英文技术社区讨论，准确理解和解决技术问题，有效提升了技术获取渠道</div>
+                            </div>
+                            <div class="project">
+                                <div class="project-name">开源项目贡献</div>
+                                <div class="project-desc">参与国际开源项目讨论和代码贡献，能够用英语进行技术交流和问题讨论，累计解决50+技术问题，拓展了技术视野和影响力</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
+            
+            <div class="experience-item">
+                <div class="job-title">
+                    <span>嵌入式应用开发工程师（中级） | 南京华乘电气技术有限公司</span>
+                    <span class="date">2023年4月17日 - 至今</span>
+                </div>
+                
+                <div class="responsibilities">
+                    <span class="section-label">工作职责</span>
+                    <ul>
+                        <li>负责开发与维护T95（带电检测手持移动终端）的软件设计、开发、测试、部署</li>
+                        <li>设计并实现多种检测技术的集成架构，确保各检测模块协调工作</li>
+                        <li>负责系统性能优化，解决实时数据处理瓶颈问题</li>
+                        <li>指导初级工程师完成模块开发，进行代码审核</li>
+                    </ul>
+                </div>
+                
+                <div class="achievements">
+                    <span class="section-label">工作成就</span>
+                    <ul>
+                        <li>主导设计模块化框架，将新检测技术集成周期缩短40%，从3个月降至约50天</li>
+                        <li>优化数据处理流程，使系统能够流畅处理超过15MB/s的实时数据流，检测效率提升30%</li>
+                        <li>解决跨平台数据同步问题，确保系统检测准确率达到92%以上，获得多个电力客户采用</li>
+                        <li>参与团队技术标准制定，推动代码质量提升，团队代码缺陷率降低25%</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="job-title">
+                    <span>C++开发工程师 | 江苏思行达信息技术有限公司</span>
+                    <span class="date">2022年3月31日 - 2023年4月17日</span>
+                </div>
+                
+                <div class="responsibilities">
+                    <span class="section-label">工作职责</span>
+                    <ul>
+                        <li>参与柜外交互终端设备 Windows 系统中转服务开发</li>
+                        <li>参与营业厅智能运营管理项目底层硬件驱动开发</li>
+                        <li>参与公司智能设备上位机的软件设计与研发</li>
+                        <li>参与撰写需求分析说明书、详细设计等技术文档</li>
+                    </ul>
+                </div>
+                
+                <div class="achievements">
+                    <span class="section-label">工作成就</span>
+                    <ul>
+                        <li>重构柜外交互终端设备中转服务代码，提高代码复用率20%，减少系统故障率约15%</li>
+                        <li>优化硬件驱动与上层应用通信机制，改善系统响应时间，从平均100ms降至60ms</li>
+                        <li>参与开发设备管理框架，支持15+种不同硬件设备的即插即用，减少了50%的设备接入开发时间</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="job-title">
+                    <span>C++开发工程师（初级） | 江西威力固智能设备有限公司</span>
+                    <span class="date">2020年10月9日 - 2022年3月27日</span>
+                </div>
+                
+                <div class="responsibilities">
+                    <span class="section-label">工作职责</span>
+                    <ul>
+                        <li>负责研发与维护文字喷墨 Windows 上位机系统</li>
+                        <li>参与公司智能设备上位机的软件设计与研发，设备视觉维护</li>
+                        <li>负责公司产品软件功能模块的详细设计、开发、测试，独立完成分配的模块</li>
+                    </ul>
+                </div>
+                
+                <div class="achievements">
+                    <span class="section-label">工作成就</span>
+                    <ul>
+                        <li>协助开发PCB文字喷墨系统功能模块，使用OpenCV实现图像处理功能</li>
+                        <li>参与开发基于Halcon的PCB板Mark点定位功能，提高定位准确性达±0.05mm</li>
+                        <li>参与优化上位机与控制器通信协议，改善系统响应速度，提高工作效率约10%</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-project-diagram"></i> 项目经验</h2>
+            
+            <div class="project-item">
+                <div class="project-header">
+                    <div>
+                        <span class="project-title">带电检测手持移动终端</span>
+                        <span class="project-company"> | 南京华乘电气技术有限公司</span>
+                    </div>
+                    <span class="project-date">2023年4月 - 至今</span>
+                </div>
+                
+                <div class="project-background">
+                    <span class="section-label">项目背景</span>
+                    <p>该项目是一款多功能电力设备带电检测终端，集成了红外测温、超高频(UHF)局部放电检测、暂态地电压(TEV)检测、声发射(AE)检测等多种检测技术于一体。系统用于电力设备状态监测和故障诊断，帮助电力工作人员及时发现设备潜在故障，预防电气事故发生。</p>
+                </div>
+                
+                <div class="tech-stack">
+                    <span class="tag">Qt/C++</span>
+                    <span class="tag">信号槽机制</span>
+                    <span class="tag">多线程编程</span>
+                    <span class="tag">状态机模式</span>
+                    <span class="tag">USB/串口通信</span>
+                    <span class="tag">FFT频谱分析</span>
+                    <span class="tag">PRPS模式识别</span>
+                    <span class="tag">实时数据采集</span>
+                </div>
+                
+                <div class="project-scale">
+                    <strong>项目规模：</strong>开发团队12人，覆盖软件架构、硬件集成、算法开发、UI设计等；产品在电力行业推广，目前用户数量约500
+                </div>
+                
+                <div class="project-role">
+                    <strong>角色：</strong>中级开发工程师，核心模块负责人
+                </div>
+                
+                <div class="responsibilities">
+                    <span class="section-label">负责内容</span>
+                    <ul>
+                        <li>主导设计多检测技术集成框架，确保各检测模块的协调工作</li>
+                        <li>负责开发TEV暂态地电压检测模块，实现脉冲采集、波形分析和PRPS图谱生成算法</li>
+                        <li>设计实现红外成像模块的设备连接管理系统，采用基于状态机的连接管理机制</li>
+                        <li>负责UHF超高频数据处理流程优化，提高采样率和处理效率</li>
+                        <li>指导2名初级工程师完成相关模块开发，进行代码审核和性能优化</li>
+                        <li>使用AI辅助工具提高开发效率，特别是在编写重复性代码和进行代码审查方面</li>
+                    </ul>
+                </div>
+                
+                <div class="challenges">
+                    <span class="section-label">项目难点及解决方案</span>
+                    <ul>
+                        <li><span class="challenge-title">多检测技术数据整合：</span>不同检测技术产生的数据格式和采样率各异。设计统一的数据接口和转换机制，实现异步通信架构，解决不同采样率数据的同步问题</li>
+                        <li><span class="challenge-title">数据处理性能：</span>实现多线程数据处理架构，采用生产者-消费者模式优化数据流，提升系统在处理大量数据时的响应性能</li>
+                        <li><span class="challenge-title">跨平台兼容性：</span>开发可移植组件库，减少平台相关代码，解决多平台部署的兼容性问题</li>
+                        <li><span class="challenge-title">大量重复代码编写：</span>利用AI辅助工具生成常规代码部分，减少重复性工作，提高开发效率</li>
+                    </ul>
+                </div>
+                
+                <div class="results">
+                    <span class="section-label">项目成果</span>
+                    <ul>
+                        <li>系统模块化设计使新检测技术集成周期从3个月缩短至约50天</li>
+                        <li>检测效率提升30%，准确率达到92%以上，获得多个电力企业客户采用</li>
+                        <li>产品稳定性显著提升，现场故障率从每月3次降至0.5次</li>
+                        <li>应用现代开发工具提高了团队开发效率约20%，加速了产品迭代和功能扩展</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-item">
+                <div class="project-header">
+                    <div>
+                        <span class="project-title">营业厅智能运营管理平台</span>
+                        <span class="project-company"> | 江苏思行达信息技术有限公司</span>
+                    </div>
+                    <span class="project-date">2023年1月 - 2023年4月</span>
+                </div>
+                
+                <div class="project-background">
+                    <span class="section-label">项目背景</span>
+                    <p>对综管平台进行升级改造，保留系统原有的功能，主要是对系统 UI、logo、看板模块、物联控制模块和宣传展示模块进行改造。</p>
+                </div>
+                
+                <div class="tech-stack">
+                    <span class="tag">TCP/IP协议</span>
+                    <span class="tag">Socket网络编程</span>
+                    <span class="tag">多线程编程</span>
+                    <span class="tag">MQTT通信</span>
+                    <span class="tag">RS485通信</span>
+                </div>
+                
+                <div class="project-scale">
+                    <strong>项目规模：</strong>团队人数5人，用户数量约300
+                </div>
+                
+                <div class="project-role">
+                    <strong>角色：</strong>开发工程师，负责HTTP服务器搭建，物联控制模块开发
+                </div>
+                
+                <div class="responsibilities">
+                    <span class="section-label">负责内容</span>
+                    <ul>
+                        <li>在Ubuntu 20.04 下，搭建RK3399(aarch64-Linux-gnu-g++)交叉编译环境</li>
+                        <li>设计并实现基于事件驱动的HTTP服务器，开发RESTful API接口</li>
+                        <li>负责基于MQTT协议的设备状态监控开发</li>
+                        <li>设计RS485设备通信协议，实现基本设备控制功能</li>
+                    </ul>
+                </div>
+                
+                <div class="challenges">
+                    <span class="section-label">项目难点及解决方案</span>
+                    <ul>
+                        <li><span class="challenge-title">不同设备的接入管理：</span>设计并实现设备适配器模式，开发统一的设备接口，实现多种设备的管理功能</li>
+                        <li><span class="challenge-title">系统稳定性问题：</span>实现监控和错误处理机制，提高系统在复杂环境下的稳定性</li>
+                    </ul>
+                </div>
+                
+                <div class="results">
+                    <span class="section-label">项目成果</span>
+                    <ul>
+                        <li>系统支持100+终端设备同时接入，响应时间控制在150ms内</li>
+                        <li>通过集中管理，营业厅设备管理效率提升20%，获得客户认可</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 以下省略其他项目，内容结构与上述项目类似 -->
+            
+        </section>
+
+        <section>
+            <h2><i class="fas fa-comment"></i> 自我评价</h2>
+            <div class="self-evaluation">
+                <p>我是一位热爱技术、追求卓越的软件开发工程师，拥有扎实的C/C++基础和丰富的项目经验。在多个项目中负责核心模块开发，能够快速理解业务需求并转化为技术实现。擅长解决复杂问题，注重代码质量和性能优化。具有良好的团队协作精神，能够有效沟通，指导初级工程师成长。我不断学习新技术，积极拥抱变化，期待在更具挑战性的环境中继续成长。</p>
+            </div>
+        </section>
+        
+        <section>
+            <h2><i class="fas fa-info-circle"></i> 其他信息</h2>
+            <div class="other-info">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-users"></i></div>
+                    <div>
+                        <strong>技术社区</strong>
+                        <p>活跃于GitHub和Stack Overflow，定期参与技术问题解答和开源项目讨论，累计解决50+技术问题。</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-book"></i></div>
+                    <div>
+                        <strong>专业阅读</strong>
+                        <p>保持每月阅读1-2本技术书籍的习惯，近期关注C++20新特性、嵌入式系统安全和AI辅助开发等领域。</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-hiking"></i></div>
+                    <div>
+                        <strong>户外活动</strong>
+                        <p>热爱骑行和登山，每月组织1-2次骑行活动。</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-home"></i></div>
+                    <div>
+                        <strong>智能家居</strong>
+                        <p>利用业余时间研究物联网技术，自主设计并实现了家庭智能照明、环境监控等系统，使用ESP32和树莓派构建控制中心。</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-share-alt"></i></div>
+                    <div>
+                        <strong>知识分享</strong>
+                        <p>在技术社区发表过多篇嵌入式开发相关文章，并在公司内部组织过"C++性能优化"和"AI辅助开发实践"等技术分享。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 添加页脚，链接回项目 -->
+        <footer class="footer">
+            <p>本简历使用 <a href="https://gitee.com/beipiao_boy/resume-system" target="_blank">个人简历系统</a> 构建，基于新拟物风格设计 | <a href="javascript:window.print()">导出PDF</a></p>
+        </footer>
+        
+        </div>
+    
+    <!-- 添加技能弹出卡片容器 -->
+    <div id="skill-popup-container"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 很简单的卡片位置初始化
+            const skillItems = document.querySelectorAll('.skill-item');
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const containerCenter = containerRect.left + (containerRect.width / 2);
+            
+            // 设置左右位置
+            skillItems.forEach(item => {
+                const tooltip = item.querySelector('.skill-tooltip');
+                if (!tooltip) return;
+                
+                // 获取位置
+                const itemRect = item.getBoundingClientRect();
+                
+                // 添加适当的类
+                tooltip.classList.remove('left', 'right');
+                if (itemRect.left < containerCenter) {
+                    tooltip.classList.add('right');
+                } else {
+                    tooltip.classList.add('left');
+                }
+            });
+
+            // 为日期添加SVG图标
+            const dateElements = document.querySelectorAll('.date');
+            dateElements.forEach(dateEl => {
+                const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>`;
+                dateEl.innerHTML = calendarIcon + dateEl.innerHTML;
+            });
+
+            // 为项目日期添加SVG图标
+            const projectDateElements = document.querySelectorAll('.project-date');
+            projectDateElements.forEach(dateEl => {
+                const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>`;
+                dateEl.innerHTML = calendarIcon + dateEl.innerHTML;
+            });
+        });
+    </script>
+        
+    <!-- 添加打印按钮 -->
+    <button class="print-button" onclick="window.print()" title="导出为PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+    </button>
+</body>
+</html> 
