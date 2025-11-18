@@ -1,4 +1,7 @@
-# 设计模式与软件架构技术笔记
+# C++设计模式与软件架构技术笔记
+
+**什么是设计模式？**
+设计模式就像"做菜的食谱"，是前人总结出来的解决常见问题的经典方法。就像做宫保鸡丁有固定的步骤和配料一样，编程中的常见问题也有经过验证的解决方案。
 
 ## 目录
 1. [设计模式基础](#设计模式基础)
@@ -7,126 +10,1910 @@
 4. [行为型设计模式](#行为型设计模式)
 5. [架构设计原则](#架构设计原则)
 6. [软件架构风格](#软件架构风格)
-7. [企业级架构模式](#企业级架构模式)
 
 ---
 
 ## 设计模式基础
 
 ### 设计模式概述
-- 设计模式的定义与起源
-- GoF(Gang of Four)设计模式分类
-- 模式的描述格式与要素
-- 反模式(Anti-Patterns)识别与避免
 
-### 面向对象设计原则
-- 单一职责原则(SRP)
-- 开闭原则(OCP)
-- 里氏替换原则(LSP)
-- 接口隔离原则(ISP)
-- 依赖倒置原则(DIP)
+**什么是GoF设计模式？**
+GoF是"四人帮"(Gang of Four)的缩写，他们写了一本著名的书，总结了23种经典的设计模式。就像武功秘籍一样，这些模式是编程高手们的"招式"。
 
-### 设计模式应用背景
-- 何时应用设计模式
-- 设计模式的优缺点权衡
-- 过度设计与设计不足的平衡
-- 模式组合与演化
+**设计模式的三大类型：**
+1. **创建型模式**：专门负责"生孩子"（创建对象）
+2. **结构型模式**：专门负责"搭积木"（组合对象）
+3. **行为型模式**：专门负责"指挥交通"（对象间通信）
+
+```cpp
+// 设计模式就像这样：给常见问题提供标准解决方案
+class DesignPatternExample {
+public:
+    // 每个模式都有：
+    // 1. 问题：什么时候用？
+    // 2. 解决方案：怎么实现？
+    // 3. 效果：有什么好处和坏处？
+
+    void demonstratePattern() {
+        std::cout << "设计模式让代码更优雅、更易维护！" << std::endl;
+    }
+};
+```
+
+### 面向对象设计原则（SOLID原则）
+
+**什么是SOLID原则？**
+SOLID是五个设计原则的首字母缩写，就像"五常"（仁义礼智信）一样，是写好代码的基本准则。
+
+#### 1. 单一职责原则(SRP) - "一个人只做一件事"
+
+```cpp
+// 错误示例：一个类做太多事情
+class BadEmployee {
+public:
+    void calculatePay() { /* 计算工资 */ }
+    void saveToDatabase() { /* 保存到数据库 */ }
+    void generateReport() { /* 生成报告 */ }
+    void sendEmail() { /* 发送邮件 */ }
+    // 这个类承担了太多责任！
+};
+
+// 正确示例：每个类只负责一件事
+class Employee {
+private:
+    std::string name;
+    double salary;
+
+public:
+    Employee(const std::string& n, double s) : name(n), salary(s) {}
+
+    // 只负责员工的基本信息
+    std::string getName() const { return name; }
+    double getSalary() const { return salary; }
+};
+
+class PayrollCalculator {
+public:
+    // 只负责计算工资
+    double calculatePay(const Employee& emp) {
+        return emp.getSalary() * 1.0;  // 简化计算
+    }
+};
+
+class DatabaseManager {
+public:
+    // 只负责数据库操作
+    void saveEmployee(const Employee& emp) {
+        std::cout << "保存员工 " << emp.getName() << " 到数据库" << std::endl;
+    }
+};
+
+class ReportGenerator {
+public:
+    // 只负责生成报告
+    void generatePayrollReport(const Employee& emp) {
+        std::cout << "生成 " << emp.getName() << " 的工资报告" << std::endl;
+    }
+};
+```
+
+#### 2. 开闭原则(OCP) - "对扩展开放，对修改关闭"
+
+```cpp
+// 就像插座一样：可以插入不同的电器（扩展），但插座本身不用改（关闭修改）
+
+// 基础形状类
+class Shape {
+public:
+    virtual ~Shape() = default;
+    virtual double calculateArea() const = 0;  // 纯虚函数
+    virtual void draw() const = 0;
+};
+
+// 圆形
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r) : radius(r) {}
+
+    double calculateArea() const override {
+        return 3.14159 * radius * radius;
+    }
+
+    void draw() const override {
+        std::cout << "画一个半径为 " << radius << " 的圆" << std::endl;
+    }
+};
+
+// 矩形
+class Rectangle : public Shape {
+private:
+    double width, height;
+
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    double calculateArea() const override {
+        return width * height;
+    }
+
+    void draw() const override {
+        std::cout << "画一个 " << width << "x" << height << " 的矩形" << std::endl;
+    }
+};
+
+// 图形管理器：不需要修改就能处理新的形状
+class ShapeManager {
+public:
+    void processShapes(const std::vector<std::unique_ptr<Shape>>& shapes) {
+        for (const auto& shape : shapes) {
+            shape->draw();
+            std::cout << "面积: " << shape->calculateArea() << std::endl;
+        }
+    }
+};
+
+// 使用示例
+void openClosedPrincipleExample() {
+    std::vector<std::unique_ptr<Shape>> shapes;
+    shapes.push_back(std::make_unique<Circle>(5.0));
+    shapes.push_back(std::make_unique<Rectangle>(4.0, 6.0));
+
+    ShapeManager manager;
+    manager.processShapes(shapes);
+
+    // 如果要添加新形状（比如三角形），只需要：
+    // 1. 创建Triangle类继承Shape
+    // 2. 实现calculateArea和draw方法
+    // 3. ShapeManager不需要任何修改！
+}
+```
+
+#### 3. 里氏替换原则(LSP) - "子类可以替换父类"
+
+```cpp
+// 就像"所有的鸟都能飞"这个假设是错误的（企鹅不能飞）
+// 子类必须能完全替换父类，不能破坏父类的行为
+
+// 错误示例：企鹅不能飞，违反了里氏替换原则
+class BadBird {
+public:
+    virtual void fly() {
+        std::cout << "鸟儿在飞翔" << std::endl;
+    }
+};
+
+class BadPenguin : public BadBird {
+public:
+    void fly() override {
+        throw std::runtime_error("企鹅不会飞！");  // 破坏了父类的行为
+    }
+};
+
+// 正确示例：重新设计继承关系
+class Bird {
+public:
+    virtual ~Bird() = default;
+    virtual void eat() {
+        std::cout << "鸟儿在吃东西" << std::endl;
+    }
+};
+
+class FlyingBird : public Bird {
+public:
+    virtual void fly() {
+        std::cout << "鸟儿在飞翔" << std::endl;
+    }
+};
+
+class SwimmingBird : public Bird {
+public:
+    virtual void swim() {
+        std::cout << "鸟儿在游泳" << std::endl;
+    }
+};
+
+class Eagle : public FlyingBird {
+public:
+    void fly() override {
+        std::cout << "老鹰在高空翱翔" << std::endl;
+    }
+};
+
+class Penguin : public SwimmingBird {
+public:
+    void swim() override {
+        std::cout << "企鹅在水中游泳" << std::endl;
+    }
+};
+
+void liskovSubstitutionExample() {
+    // 现在可以安全地替换了
+    std::vector<std::unique_ptr<Bird>> birds;
+    birds.push_back(std::make_unique<Eagle>());
+    birds.push_back(std::make_unique<Penguin>());
+
+    for (const auto& bird : birds) {
+        bird->eat();  // 所有鸟都能吃，安全替换
+    }
+}
+```
+
+#### 4. 接口隔离原则(ISP) - "不要强迫别人用不需要的功能"
+
+```cpp
+// 错误示例：胖接口，强迫实现不需要的功能
+class BadWorker {
+public:
+    virtual void work() = 0;
+    virtual void eat() = 0;
+    virtual void sleep() = 0;
+};
+
+class Robot : public BadWorker {
+public:
+    void work() override {
+        std::cout << "机器人在工作" << std::endl;
+    }
+
+    void eat() override {
+        // 机器人不需要吃饭，但被迫实现
+        throw std::runtime_error("机器人不需要吃饭！");
+    }
+
+    void sleep() override {
+        // 机器人不需要睡觉，但被迫实现
+        throw std::runtime_error("机器人不需要睡觉！");
+    }
+};
+
+// 正确示例：接口隔离，按需实现
+class Workable {
+public:
+    virtual ~Workable() = default;
+    virtual void work() = 0;
+};
+
+class Eatable {
+public:
+    virtual ~Eatable() = default;
+    virtual void eat() = 0;
+};
+
+class Sleepable {
+public:
+    virtual ~Sleepable() = default;
+    virtual void sleep() = 0;
+};
+
+// 人类需要工作、吃饭、睡觉
+class Human : public Workable, public Eatable, public Sleepable {
+public:
+    void work() override {
+        std::cout << "人类在工作" << std::endl;
+    }
+
+    void eat() override {
+        std::cout << "人类在吃饭" << std::endl;
+    }
+
+    void sleep() override {
+        std::cout << "人类在睡觉" << std::endl;
+    }
+};
+
+// 机器人只需要工作
+class GoodRobot : public Workable {
+public:
+    void work() override {
+        std::cout << "机器人在工作" << std::endl;
+    }
+};
+```
+
+#### 5. 依赖倒置原则(DIP) - "依赖抽象，不依赖具体"
+
+```cpp
+// 错误示例：高层模块依赖低层模块
+class MySQLDatabase {
+public:
+    void save(const std::string& data) {
+        std::cout << "保存到MySQL: " << data << std::endl;
+    }
+};
+
+class BadOrderService {
+private:
+    MySQLDatabase database;  // 直接依赖具体实现
+
+public:
+    void processOrder(const std::string& order) {
+        // 处理订单逻辑
+        database.save(order);  // 如果要换数据库，就要修改这里
+    }
+};
+
+// 正确示例：依赖抽象接口
+class Database {
+public:
+    virtual ~Database() = default;
+    virtual void save(const std::string& data) = 0;
+};
+
+class MySQLDatabaseImpl : public Database {
+public:
+    void save(const std::string& data) override {
+        std::cout << "保存到MySQL: " << data << std::endl;
+    }
+};
+
+class PostgreSQLDatabase : public Database {
+public:
+    void save(const std::string& data) override {
+        std::cout << "保存到PostgreSQL: " << data << std::endl;
+    }
+};
+
+class GoodOrderService {
+private:
+    std::unique_ptr<Database> database;  // 依赖抽象接口
+
+public:
+    GoodOrderService(std::unique_ptr<Database> db) : database(std::move(db)) {}
+
+    void processOrder(const std::string& order) {
+        // 处理订单逻辑
+        database->save(order);  // 不关心具体是什么数据库
+    }
+};
+
+void dependencyInversionExample() {
+    // 可以轻松切换数据库实现
+    auto mysqlService = std::make_unique<GoodOrderService>(
+        std::make_unique<MySQLDatabaseImpl>()
+    );
+
+    auto postgresService = std::make_unique<GoodOrderService>(
+        std::make_unique<PostgreSQLDatabase>()
+    );
+
+    mysqlService->processOrder("订单1");
+    postgresService->processOrder("订单2");
+}
+```
 
 ## 创建型设计模式
 
-### 单例模式(Singleton)
-- 实现方式(懒汉式、饿汉式)
-- 线程安全的单例实现
-- 使用场景与实际案例
-- 单例模式的测试与维护
+**什么是创建型模式？**
+创建型模式就像"生孩子的不同方式"，专门解决如何创建对象的问题。有些对象很简单，直接new就行；有些对象很复杂，需要特殊的"接生"方法。
 
-### 工厂模式家族
-- 简单工厂(Simple Factory)
-- 工厂方法(Factory Method)
-- 抽象工厂(Abstract Factory)
-- 工厂模式的变体与应用
+### 单例模式(Singleton) - "全世界只有一个皇帝"
 
-### 建造者模式(Builder)
-- 构建复杂对象的过程抽象
-- Director与Builder的关系
-- 流式构建器(Fluent Builder)实现
-- 与工厂模式的区别
+**什么时候用单例？**
+当你需要确保某个类只有一个实例时，比如：
+- 数据库连接池（只需要一个）
+- 日志记录器（全局统一）
+- 配置管理器（全局设置）
 
-### 原型模式(Prototype)
-- 对象克隆与深浅拷贝
-- 原型注册表实现
-- 序列化与反序列化应用
-- 原型模式在框架中的应用
+```cpp
+#include <mutex>
+#include <memory>
+
+// 线程安全的单例模式实现
+class Logger {
+private:
+    static std::unique_ptr<Logger> instance;
+    static std::mutex mutex_;
+
+    // 私有构造函数，防止外部创建
+    Logger() {
+        std::cout << "日志系统初始化..." << std::endl;
+    }
+
+public:
+    // 删除拷贝构造和赋值操作
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
+
+    // 获取单例实例
+    static Logger* getInstance() {
+        std::lock_guard<std::mutex> lock(mutex_);
+        if (instance == nullptr) {
+            instance = std::unique_ptr<Logger>(new Logger());
+        }
+        return instance.get();
+    }
+
+    void log(const std::string& message) {
+        std::cout << "[LOG] " << message << std::endl;
+    }
+};
+
+// 静态成员定义
+std::unique_ptr<Logger> Logger::instance = nullptr;
+std::mutex Logger::mutex_;
+
+// 更简单的C++11单例实现（推荐）
+class SimpleLogger {
+public:
+    static SimpleLogger& getInstance() {
+        static SimpleLogger instance;  // C++11保证线程安全
+        return instance;
+    }
+
+    void log(const std::string& message) {
+        std::cout << "[SIMPLE LOG] " << message << std::endl;
+    }
+
+private:
+    SimpleLogger() {
+        std::cout << "简单日志系统初始化..." << std::endl;
+    }
+
+public:
+    SimpleLogger(const SimpleLogger&) = delete;
+    SimpleLogger& operator=(const SimpleLogger&) = delete;
+};
+
+void singletonExample() {
+    // 使用单例
+    Logger* logger1 = Logger::getInstance();
+    Logger* logger2 = Logger::getInstance();
+
+    std::cout << "logger1和logger2是同一个对象吗？"
+              << (logger1 == logger2 ? "是" : "否") << std::endl;
+
+    logger1->log("这是第一条日志");
+    logger2->log("这是第二条日志");
+
+    // 使用简单单例
+    SimpleLogger::getInstance().log("使用简单单例记录日志");
+}
+
+### 工厂模式家族 - "专业的生产车间"
+
+**什么是工厂模式？**
+工厂模式就像现实中的工厂，你告诉工厂你要什么产品，工厂就给你生产出来，你不需要知道具体的生产过程。
+
+#### 1. 简单工厂(Simple Factory) - "万能工厂"
+
+```cpp
+#include <memory>
+#include <string>
+
+// 产品基类
+class Animal {
+public:
+    virtual ~Animal() = default;
+    virtual void makeSound() const = 0;
+    virtual std::string getType() const = 0;
+};
+
+// 具体产品
+class Dog : public Animal {
+public:
+    void makeSound() const override {
+        std::cout << "汪汪汪！" << std::endl;
+    }
+
+    std::string getType() const override {
+        return "狗";
+    }
+};
+
+class Cat : public Animal {
+public:
+    void makeSound() const override {
+        std::cout << "喵喵喵！" << std::endl;
+    }
+
+    std::string getType() const override {
+        return "猫";
+    }
+};
+
+class Bird : public Animal {
+public:
+    void makeSound() const override {
+        std::cout << "叽叽喳喳！" << std::endl;
+    }
+
+    std::string getType() const override {
+        return "鸟";
+    }
+};
+
+// 简单工厂
+class AnimalFactory {
+public:
+    static std::unique_ptr<Animal> createAnimal(const std::string& type) {
+        if (type == "dog") {
+            return std::make_unique<Dog>();
+        } else if (type == "cat") {
+            return std::make_unique<Cat>();
+        } else if (type == "bird") {
+            return std::make_unique<Bird>();
+        } else {
+            std::cout << "未知的动物类型: " << type << std::endl;
+            return nullptr;
+        }
+    }
+};
+
+void simpleFactoryExample() {
+    std::cout << "=== 简单工厂示例 ===" << std::endl;
+
+    // 使用工厂创建动物
+    auto dog = AnimalFactory::createAnimal("dog");
+    auto cat = AnimalFactory::createAnimal("cat");
+    auto bird = AnimalFactory::createAnimal("bird");
+
+    if (dog) {
+        std::cout << "创建了一只" << dog->getType() << ": ";
+        dog->makeSound();
+    }
+
+    if (cat) {
+        std::cout << "创建了一只" << cat->getType() << ": ";
+        cat->makeSound();
+    }
+
+    if (bird) {
+        std::cout << "创建了一只" << bird->getType() << ": ";
+        bird->makeSound();
+    }
+}
+```
+
+#### 2. 工厂方法(Factory Method) - "专业分工的工厂"
+
+```cpp
+// 抽象工厂基类
+class AnimalCreator {
+public:
+    virtual ~AnimalCreator() = default;
+
+    // 工厂方法：由子类实现具体创建逻辑
+    virtual std::unique_ptr<Animal> createAnimal() const = 0;
+
+    // 模板方法：使用工厂方法
+    void demonstrateAnimal() const {
+        auto animal = createAnimal();
+        if (animal) {
+            std::cout << "工厂生产了一只" << animal->getType() << ": ";
+            animal->makeSound();
+        }
+    }
+};
+
+// 具体工厂
+class DogFactory : public AnimalCreator {
+public:
+    std::unique_ptr<Animal> createAnimal() const override {
+        std::cout << "狗工厂正在生产小狗..." << std::endl;
+        return std::make_unique<Dog>();
+    }
+};
+
+class CatFactory : public AnimalCreator {
+public:
+    std::unique_ptr<Animal> createAnimal() const override {
+        std::cout << "猫工厂正在生产小猫..." << std::endl;
+        return std::make_unique<Cat>();
+    }
+};
+
+class BirdFactory : public AnimalCreator {
+public:
+    std::unique_ptr<Animal> createAnimal() const override {
+        std::cout << "鸟工厂正在生产小鸟..." << std::endl;
+        return std::make_unique<Bird>();
+    }
+};
+
+void factoryMethodExample() {
+    std::cout << "\n=== 工厂方法示例 ===" << std::endl;
+
+    // 创建不同的工厂
+    std::vector<std::unique_ptr<AnimalCreator>> factories;
+    factories.push_back(std::make_unique<DogFactory>());
+    factories.push_back(std::make_unique<CatFactory>());
+    factories.push_back(std::make_unique<BirdFactory>());
+
+    // 每个工厂生产自己的产品
+    for (const auto& factory : factories) {
+        factory->demonstrateAnimal();
+    }
+}
+```
+
+#### 3. 抽象工厂(Abstract Factory) - "生产全套产品的工厂"
+
+```cpp
+// 抽象产品族：GUI组件
+class Button {
+public:
+    virtual ~Button() = default;
+    virtual void click() const = 0;
+};
+
+class TextBox {
+public:
+    virtual ~TextBox() = default;
+    virtual void input(const std::string& text) const = 0;
+};
+
+// Windows风格的产品
+class WindowsButton : public Button {
+public:
+    void click() const override {
+        std::cout << "Windows按钮被点击：[确定]" << std::endl;
+    }
+};
+
+class WindowsTextBox : public TextBox {
+public:
+    void input(const std::string& text) const override {
+        std::cout << "Windows文本框输入：" << text << std::endl;
+    }
+};
+
+// Mac风格的产品
+class MacButton : public Button {
+public:
+    void click() const override {
+        std::cout << "Mac按钮被点击：(确定)" << std::endl;
+    }
+};
+
+class MacTextBox : public TextBox {
+public:
+    void input(const std::string& text) const override {
+        std::cout << "Mac文本框输入：" << text << std::endl;
+    }
+};
+
+// 抽象工厂：创建一整套GUI组件
+class GUIFactory {
+public:
+    virtual ~GUIFactory() = default;
+    virtual std::unique_ptr<Button> createButton() const = 0;
+    virtual std::unique_ptr<TextBox> createTextBox() const = 0;
+};
+
+// 具体工厂：Windows工厂
+class WindowsFactory : public GUIFactory {
+public:
+    std::unique_ptr<Button> createButton() const override {
+        return std::make_unique<WindowsButton>();
+    }
+
+    std::unique_ptr<TextBox> createTextBox() const override {
+        return std::make_unique<WindowsTextBox>();
+    }
+};
+
+// 具体工厂：Mac工厂
+class MacFactory : public GUIFactory {
+public:
+    std::unique_ptr<Button> createButton() const override {
+        return std::make_unique<MacButton>();
+    }
+
+    std::unique_ptr<TextBox> createTextBox() const override {
+        return std::make_unique<MacTextBox>();
+    }
+};
+
+// 客户端代码：使用抽象工厂
+class Application {
+private:
+    std::unique_ptr<GUIFactory> factory;
+
+public:
+    Application(std::unique_ptr<GUIFactory> f) : factory(std::move(f)) {}
+
+    void createUI() {
+        auto button = factory->createButton();
+        auto textBox = factory->createTextBox();
+
+        std::cout << "创建用户界面：" << std::endl;
+        textBox->input("Hello World");
+        button->click();
+    }
+};
+
+void abstractFactoryExample() {
+    std::cout << "\n=== 抽象工厂示例 ===" << std::endl;
+
+    // 根据操作系统选择工厂
+    std::string os = "Windows";  // 可以从配置文件读取
+
+    std::unique_ptr<GUIFactory> factory;
+    if (os == "Windows") {
+        factory = std::make_unique<WindowsFactory>();
+        std::cout << "使用Windows风格界面：" << std::endl;
+    } else {
+        factory = std::make_unique<MacFactory>();
+        std::cout << "使用Mac风格界面：" << std::endl;
+    }
+
+    Application app(std::move(factory));
+    app.createUI();
+}
+
+### 建造者模式(Builder) - "按步骤组装复杂产品"
+
+**什么时候用建造者模式？**
+当你要创建一个很复杂的对象，需要很多步骤时，就像组装电脑一样：选主板、CPU、内存、硬盘等，每个步骤都很重要。
+
+```cpp
+#include <string>
+#include <vector>
+
+// 复杂产品：电脑
+class Computer {
+private:
+    std::string cpu;
+    std::string memory;
+    std::string storage;
+    std::string graphics;
+    std::string motherboard;
+    std::vector<std::string> accessories;
+
+public:
+    void setCPU(const std::string& c) { cpu = c; }
+    void setMemory(const std::string& m) { memory = m; }
+    void setStorage(const std::string& s) { storage = s; }
+    void setGraphics(const std::string& g) { graphics = g; }
+    void setMotherboard(const std::string& mb) { motherboard = mb; }
+    void addAccessory(const std::string& acc) { accessories.push_back(acc); }
+
+    void showSpecs() const {
+        std::cout << "=== 电脑配置 ===" << std::endl;
+        std::cout << "CPU: " << cpu << std::endl;
+        std::cout << "内存: " << memory << std::endl;
+        std::cout << "存储: " << storage << std::endl;
+        std::cout << "显卡: " << graphics << std::endl;
+        std::cout << "主板: " << motherboard << std::endl;
+
+        if (!accessories.empty()) {
+            std::cout << "配件: ";
+            for (const auto& acc : accessories) {
+                std::cout << acc << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << "==================" << std::endl;
+    }
+};
+
+// 抽象建造者
+class ComputerBuilder {
+protected:
+    std::unique_ptr<Computer> computer;
+
+public:
+    ComputerBuilder() : computer(std::make_unique<Computer>()) {}
+    virtual ~ComputerBuilder() = default;
+
+    // 建造步骤
+    virtual ComputerBuilder& buildCPU() = 0;
+    virtual ComputerBuilder& buildMemory() = 0;
+    virtual ComputerBuilder& buildStorage() = 0;
+    virtual ComputerBuilder& buildGraphics() = 0;
+    virtual ComputerBuilder& buildMotherboard() = 0;
+    virtual ComputerBuilder& buildAccessories() = 0;
+
+    // 获取最终产品
+    std::unique_ptr<Computer> getResult() {
+        return std::move(computer);
+    }
+};
+
+// 具体建造者：游戏电脑
+class GamingComputerBuilder : public ComputerBuilder {
+public:
+    ComputerBuilder& buildCPU() override {
+        computer->setCPU("Intel i9-13900K (高性能游戏CPU)");
+        std::cout << "安装高性能游戏CPU..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildMemory() override {
+        computer->setMemory("32GB DDR5-6000 (游戏内存)");
+        std::cout << "安装大容量高速内存..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildStorage() override {
+        computer->setStorage("2TB NVMe SSD (游戏存储)");
+        std::cout << "安装高速游戏存储..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildGraphics() override {
+        computer->setGraphics("RTX 4090 (顶级游戏显卡)");
+        std::cout << "安装顶级游戏显卡..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildMotherboard() override {
+        computer->setMotherboard("ROG STRIX Z790-E (游戏主板)");
+        std::cout << "安装游戏主板..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildAccessories() override {
+        computer->addAccessory("RGB机械键盘");
+        computer->addAccessory("游戏鼠标");
+        computer->addAccessory("电竞显示器");
+        std::cout << "添加游戏配件..." << std::endl;
+        return *this;
+    }
+};
+
+// 具体建造者：办公电脑
+class OfficeComputerBuilder : public ComputerBuilder {
+public:
+    ComputerBuilder& buildCPU() override {
+        computer->setCPU("Intel i5-13400 (办公CPU)");
+        std::cout << "安装办公CPU..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildMemory() override {
+        computer->setMemory("16GB DDR4-3200 (办公内存)");
+        std::cout << "安装标准内存..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildStorage() override {
+        computer->setStorage("512GB SATA SSD (办公存储)");
+        std::cout << "安装办公存储..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildGraphics() override {
+        computer->setGraphics("集成显卡 (办公够用)");
+        std::cout << "使用集成显卡..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildMotherboard() override {
+        computer->setMotherboard("B760M (办公主板)");
+        std::cout << "安装办公主板..." << std::endl;
+        return *this;
+    }
+
+    ComputerBuilder& buildAccessories() override {
+        computer->addAccessory("无线键鼠套装");
+        computer->addAccessory("办公显示器");
+        std::cout << "添加办公配件..." << std::endl;
+        return *this;
+    }
+};
+
+// 指挥者：负责建造过程
+class ComputerDirector {
+public:
+    std::unique_ptr<Computer> buildComputer(ComputerBuilder& builder) {
+        std::cout << "开始组装电脑..." << std::endl;
+
+        // 按照固定步骤建造
+        builder.buildMotherboard()
+               .buildCPU()
+               .buildMemory()
+               .buildStorage()
+               .buildGraphics()
+               .buildAccessories();
+
+        std::cout << "电脑组装完成！" << std::endl;
+        return builder.getResult();
+    }
+};
+
+// 流式建造者（现代C++风格）
+class FluentComputerBuilder {
+private:
+    std::unique_ptr<Computer> computer;
+
+public:
+    FluentComputerBuilder() : computer(std::make_unique<Computer>()) {}
+
+    FluentComputerBuilder& withCPU(const std::string& cpu) {
+        computer->setCPU(cpu);
+        return *this;
+    }
+
+    FluentComputerBuilder& withMemory(const std::string& memory) {
+        computer->setMemory(memory);
+        return *this;
+    }
+
+    FluentComputerBuilder& withStorage(const std::string& storage) {
+        computer->setStorage(storage);
+        return *this;
+    }
+
+    FluentComputerBuilder& withGraphics(const std::string& graphics) {
+        computer->setGraphics(graphics);
+        return *this;
+    }
+
+    FluentComputerBuilder& withMotherboard(const std::string& motherboard) {
+        computer->setMotherboard(motherboard);
+        return *this;
+    }
+
+    FluentComputerBuilder& withAccessory(const std::string& accessory) {
+        computer->addAccessory(accessory);
+        return *this;
+    }
+
+    std::unique_ptr<Computer> build() {
+        return std::move(computer);
+    }
+};
+
+void builderPatternExample() {
+    std::cout << "\n=== 建造者模式示例 ===" << std::endl;
+
+    ComputerDirector director;
+
+    // 建造游戏电脑
+    std::cout << "\n--- 建造游戏电脑 ---" << std::endl;
+    GamingComputerBuilder gamingBuilder;
+    auto gamingPC = director.buildComputer(gamingBuilder);
+    gamingPC->showSpecs();
+
+    // 建造办公电脑
+    std::cout << "\n--- 建造办公电脑 ---" << std::endl;
+    OfficeComputerBuilder officeBuilder;
+    auto officePC = director.buildComputer(officeBuilder);
+    officePC->showSpecs();
+
+    // 使用流式建造者
+    std::cout << "\n--- 流式建造者 ---" << std::endl;
+    auto customPC = FluentComputerBuilder()
+        .withCPU("AMD Ryzen 7 7700X")
+        .withMemory("32GB DDR5")
+        .withStorage("1TB NVMe SSD")
+        .withGraphics("RTX 4070")
+        .withMotherboard("X670E")
+        .withAccessory("机械键盘")
+        .withAccessory("游戏鼠标")
+        .build();
+
+    std::cout << "使用流式建造者创建自定义电脑：" << std::endl;
+    customPC->showSpecs();
+}
+```
 
 ## 结构型设计模式
 
-### 适配器模式(Adapter)
-- 类适配器与对象适配器
-- 双向适配器实现
-- 在遗留系统集成中的应用
-- 与外观模式的比较
+**什么是结构型模式？**
+结构型模式就像"搭积木"，专门解决如何将类和对象组合成更大的结构。就像建房子一样，砖头、水泥、钢筋怎么组合才能建出坚固美观的房子。
 
-### 装饰器模式(Decorator)
-- 动态扩展对象功能
-- 装饰链的构建与管理
-- Java I/O中的装饰器模式
-- 装饰器与继承的权衡
+### 适配器模式(Adapter) - "转换插头"
 
-### 代理模式(Proxy)
-- 远程代理、虚拟代理、保护代理
-- 静态代理与动态代理技术
-- AOP中的代理模式应用
-- 代理链与性能考量
+**什么时候用适配器？**
+当你有两个接口不兼容的类，但又需要它们一起工作时，就像中国的电器要在美国使用，需要转换插头一样。
 
-### 组合模式(Composite)
-- 部分-整体层次结构表示
-- 统一接口设计原则
-- 安全组合模式与透明组合模式
-- 实际应用场景分析
+```cpp
+#include <iostream>
+#include <memory>
 
-### 外观模式(Facade)
-- 子系统接口统一与简化
-- 多层次外观设计
-- 与中介者模式的比较
-- 在API设计中的应用
+// 目标接口：我们期望的接口
+class MediaPlayer {
+public:
+    virtual ~MediaPlayer() = default;
+    virtual void play(const std::string& audioType, const std::string& fileName) = 0;
+};
+
+// 被适配者：老式音频播放器，只能播放MP3
+class Mp3Player {
+public:
+    void playMp3(const std::string& fileName) {
+        std::cout << "播放MP3文件: " << fileName << std::endl;
+    }
+};
+
+// 被适配者：高级音频播放器，可以播放MP4和VLC
+class AdvancedMediaPlayer {
+public:
+    virtual ~AdvancedMediaPlayer() = default;
+    virtual void playVlc(const std::string& fileName) = 0;
+    virtual void playMp4(const std::string& fileName) = 0;
+};
+
+class VlcPlayer : public AdvancedMediaPlayer {
+public:
+    void playVlc(const std::string& fileName) override {
+        std::cout << "播放VLC文件: " << fileName << std::endl;
+    }
+
+    void playMp4(const std::string& fileName) override {
+        // VLC播放器不支持MP4
+    }
+};
+
+class Mp4Player : public AdvancedMediaPlayer {
+public:
+    void playVlc(const std::string& fileName) override {
+        // MP4播放器不支持VLC
+    }
+
+    void playMp4(const std::string& fileName) override {
+        std::cout << "播放MP4文件: " << fileName << std::endl;
+    }
+};
+
+// 适配器：让不同的播放器都能通过统一接口使用
+class MediaAdapter : public MediaPlayer {
+private:
+    std::unique_ptr<AdvancedMediaPlayer> advancedPlayer;
+
+public:
+    MediaAdapter(const std::string& audioType) {
+        if (audioType == "vlc") {
+            advancedPlayer = std::make_unique<VlcPlayer>();
+        } else if (audioType == "mp4") {
+            advancedPlayer = std::make_unique<Mp4Player>();
+        }
+    }
+
+    void play(const std::string& audioType, const std::string& fileName) override {
+        if (audioType == "vlc") {
+            advancedPlayer->playVlc(fileName);
+        } else if (audioType == "mp4") {
+            advancedPlayer->playMp4(fileName);
+        }
+    }
+};
+
+// 音频播放器：使用适配器统一接口
+class AudioPlayer : public MediaPlayer {
+private:
+    Mp3Player mp3Player;
+    std::unique_ptr<MediaAdapter> adapter;
+
+public:
+    void play(const std::string& audioType, const std::string& fileName) override {
+        if (audioType == "mp3") {
+            // 直接播放MP3
+            mp3Player.playMp3(fileName);
+        } else if (audioType == "vlc" || audioType == "mp4") {
+            // 使用适配器播放其他格式
+            adapter = std::make_unique<MediaAdapter>(audioType);
+            adapter->play(audioType, fileName);
+        } else {
+            std::cout << "不支持的音频格式: " << audioType << std::endl;
+        }
+    }
+};
+
+void adapterPatternExample() {
+    std::cout << "\n=== 适配器模式示例 ===" << std::endl;
+
+    AudioPlayer player;
+
+    player.play("mp3", "beyond_the_horizon.mp3");
+    player.play("mp4", "alone.mp4");
+    player.play("vlc", "far_far_away.vlc");
+    player.play("avi", "mind_me.avi");  // 不支持的格式
+}
+```
+
+### 装饰器模式(Decorator) - "给对象穿衣服"
+
+**什么时候用装饰器？**
+当你想给一个对象动态地添加功能，而不想修改原来的类时，就像给手机贴膜、戴保护套一样，不改变手机本身，但增加了新功能。
+
+```cpp
+// 基础组件：咖啡
+class Coffee {
+public:
+    virtual ~Coffee() = default;
+    virtual std::string getDescription() const = 0;
+    virtual double getCost() const = 0;
+};
+
+// 具体组件：简单咖啡
+class SimpleCoffee : public Coffee {
+public:
+    std::string getDescription() const override {
+        return "简单咖啡";
+    }
+
+    double getCost() const override {
+        return 10.0;  // 基础价格10元
+    }
+};
+
+// 装饰器基类
+class CoffeeDecorator : public Coffee {
+protected:
+    std::unique_ptr<Coffee> coffee;
+
+public:
+    CoffeeDecorator(std::unique_ptr<Coffee> c) : coffee(std::move(c)) {}
+
+    std::string getDescription() const override {
+        return coffee->getDescription();
+    }
+
+    double getCost() const override {
+        return coffee->getCost();
+    }
+};
+
+// 具体装饰器：牛奶
+class MilkDecorator : public CoffeeDecorator {
+public:
+    MilkDecorator(std::unique_ptr<Coffee> c) : CoffeeDecorator(std::move(c)) {}
+
+    std::string getDescription() const override {
+        return coffee->getDescription() + " + 牛奶";
+    }
+
+    double getCost() const override {
+        return coffee->getCost() + 2.0;  // 牛奶加2元
+    }
+};
+
+// 具体装饰器：糖
+class SugarDecorator : public CoffeeDecorator {
+public:
+    SugarDecorator(std::unique_ptr<Coffee> c) : CoffeeDecorator(std::move(c)) {}
+
+    std::string getDescription() const override {
+        return coffee->getDescription() + " + 糖";
+    }
+
+    double getCost() const override {
+        return coffee->getCost() + 1.0;  // 糖加1元
+    }
+};
+
+// 具体装饰器：巧克力
+class ChocolateDecorator : public CoffeeDecorator {
+public:
+    ChocolateDecorator(std::unique_ptr<Coffee> c) : CoffeeDecorator(std::move(c)) {}
+
+    std::string getDescription() const override {
+        return coffee->getDescription() + " + 巧克力";
+    }
+
+    double getCost() const override {
+        return coffee->getCost() + 3.0;  // 巧克力加3元
+    }
+};
+
+void decoratorPatternExample() {
+    std::cout << "\n=== 装饰器模式示例 ===" << std::endl;
+
+    // 基础咖啡
+    auto coffee = std::make_unique<SimpleCoffee>();
+    std::cout << coffee->getDescription() << " - " << coffee->getCost() << "元" << std::endl;
+
+    // 加牛奶
+    coffee = std::make_unique<MilkDecorator>(std::move(coffee));
+    std::cout << coffee->getDescription() << " - " << coffee->getCost() << "元" << std::endl;
+
+    // 再加糖
+    coffee = std::make_unique<SugarDecorator>(std::move(coffee));
+    std::cout << coffee->getDescription() << " - " << coffee->getCost() << "元" << std::endl;
+
+    // 最后加巧克力
+    coffee = std::make_unique<ChocolateDecorator>(std::move(coffee));
+    std::cout << coffee->getDescription() << " - " << coffee->getCost() << "元" << std::endl;
+
+    std::cout << "\n另一种组合：" << std::endl;
+
+    // 创建另一种组合：咖啡+巧克力+牛奶
+    auto specialCoffee = std::make_unique<SimpleCoffee>();
+    specialCoffee = std::make_unique<ChocolateDecorator>(std::move(specialCoffee));
+    specialCoffee = std::make_unique<MilkDecorator>(std::move(specialCoffee));
+
+    std::cout << specialCoffee->getDescription() << " - " << specialCoffee->getCost() << "元" << std::endl;
+}
+```
 
 ## 行为型设计模式
 
-### 观察者模式(Observer)
-- 发布-订阅机制实现
-- 推模型与拉模型
-- 事件驱动系统中的应用
-- 避免循环通知与内存泄漏
+**什么是行为型模式？**
+行为型模式就像"指挥交通"，专门解决对象之间如何通信和协作的问题。就像交通警察指挥车辆通行一样，这些模式让对象之间有序地交互。
 
-### 策略模式(Strategy)
-- 算法族与上下文关系
-- 运行时策略切换
-- 与模板方法模式比较
-- 在框架设计中的应用
+### 观察者模式(Observer) - "订阅报纸"
 
-### 命令模式(Command)
-- 请求封装与解耦
-- 命令队列与宏命令
-- 撤销/重做功能实现
-- 事务处理中的应用
+**什么时候用观察者模式？**
+当一个对象的状态改变需要通知多个其他对象时，就像报社发布新闻，所有订阅者都会收到通知。
 
-### 责任链模式(Chain of Responsibility)
-- 请求处理链构建
-- 纯与不纯的责任链
-- 与装饰器模式的结合
-- 在中间件设计中的应用
+```cpp
+#include <vector>
+#include <algorithm>
+#include <memory>
 
-### 状态模式(State)
-- 状态转换图与实现
-- 状态机框架设计
-- 避免条件语句的状态处理
-- 上下文与状态对象关系
+// 观察者接口
+class Observer {
+public:
+    virtual ~Observer() = default;
+    virtual void update(const std::string& news) = 0;
+};
 
-### 其他行为模式
-- 访问者模式(Visitor)应用场景
-- 中介者模式(Mediator)与解耦
-- 备忘录模式(Memento)状态保存
-- 解释器模式(Interpreter)领域语言
+// 被观察者接口
+class Subject {
+public:
+    virtual ~Subject() = default;
+    virtual void attach(std::shared_ptr<Observer> observer) = 0;
+    virtual void detach(std::shared_ptr<Observer> observer) = 0;
+    virtual void notify() = 0;
+};
+
+// 具体被观察者：新闻社
+class NewsAgency : public Subject {
+private:
+    std::vector<std::shared_ptr<Observer>> observers;
+    std::string latestNews;
+
+public:
+    void attach(std::shared_ptr<Observer> observer) override {
+        observers.push_back(observer);
+        std::cout << "新增订阅者" << std::endl;
+    }
+
+    void detach(std::shared_ptr<Observer> observer) override {
+        observers.erase(
+            std::remove(observers.begin(), observers.end(), observer),
+            observers.end()
+        );
+        std::cout << "移除订阅者" << std::endl;
+    }
+
+    void notify() override {
+        std::cout << "通知所有订阅者..." << std::endl;
+        for (auto& observer : observers) {
+            if (auto obs = observer.lock()) {  // 检查weak_ptr是否有效
+                observer->update(latestNews);
+            }
+        }
+    }
+
+    void setNews(const std::string& news) {
+        latestNews = news;
+        std::cout << "新闻社发布新闻: " << news << std::endl;
+        notify();
+    }
+
+    std::string getNews() const {
+        return latestNews;
+    }
+};
+
+// 具体观察者：新闻频道
+class NewsChannel : public Observer {
+private:
+    std::string channelName;
+
+public:
+    NewsChannel(const std::string& name) : channelName(name) {}
+
+    void update(const std::string& news) override {
+        std::cout << channelName << " 收到新闻: " << news << std::endl;
+        broadcast(news);
+    }
+
+private:
+    void broadcast(const std::string& news) {
+        std::cout << channelName << " 正在播报: " << news << std::endl;
+    }
+};
+
+// 具体观察者：报纸
+class Newspaper : public Observer {
+private:
+    std::string paperName;
+
+public:
+    Newspaper(const std::string& name) : paperName(name) {}
+
+    void update(const std::string& news) override {
+        std::cout << paperName << " 收到新闻: " << news << std::endl;
+        print(news);
+    }
+
+private:
+    void print(const std::string& news) {
+        std::cout << paperName << " 正在印刷: " << news << std::endl;
+    }
+};
+
+void observerPatternExample() {
+    std::cout << "\n=== 观察者模式示例 ===" << std::endl;
+
+    // 创建新闻社
+    auto newsAgency = std::make_unique<NewsAgency>();
+
+    // 创建观察者
+    auto cctv = std::make_shared<NewsChannel>("CCTV新闻");
+    auto phoenix = std::make_shared<NewsChannel>("凤凰卫视");
+    auto dailyPaper = std::make_shared<Newspaper>("人民日报");
+    auto eveningPaper = std::make_shared<Newspaper>("晚报");
+
+    // 订阅新闻
+    newsAgency->attach(cctv);
+    newsAgency->attach(phoenix);
+    newsAgency->attach(dailyPaper);
+    newsAgency->attach(eveningPaper);
+
+    // 发布新闻
+    newsAgency->setNews("重大科技突破：量子计算机实现新突破！");
+
+    std::cout << "\n--- 凤凰卫视取消订阅 ---" << std::endl;
+    newsAgency->detach(phoenix);
+
+    // 再次发布新闻
+    newsAgency->setNews("经济新闻：股市创新高！");
+}
+```
+
+### 策略模式(Strategy) - "不同的解题方法"
+
+**什么时候用策略模式？**
+当你有多种方法解决同一个问题，并且希望能够动态切换这些方法时，就像考试时可以选择不同的解题策略。
+
+```cpp
+// 策略接口：排序策略
+class SortStrategy {
+public:
+    virtual ~SortStrategy() = default;
+    virtual void sort(std::vector<int>& data) = 0;
+    virtual std::string getName() const = 0;
+};
+
+// 具体策略：冒泡排序
+class BubbleSortStrategy : public SortStrategy {
+public:
+    void sort(std::vector<int>& data) override {
+        std::cout << "使用冒泡排序..." << std::endl;
+        int n = data.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (data[j] > data[j + 1]) {
+                    std::swap(data[j], data[j + 1]);
+                }
+            }
+        }
+    }
+
+    std::string getName() const override {
+        return "冒泡排序";
+    }
+};
+
+// 具体策略：快速排序
+class QuickSortStrategy : public SortStrategy {
+public:
+    void sort(std::vector<int>& data) override {
+        std::cout << "使用快速排序..." << std::endl;
+        quickSort(data, 0, data.size() - 1);
+    }
+
+    std::string getName() const override {
+        return "快速排序";
+    }
+
+private:
+    void quickSort(std::vector<int>& arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    int partition(std::vector<int>& arr, int low, int high) {
+        int pivot = arr[high];
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                std::swap(arr[i], arr[j]);
+            }
+        }
+        std::swap(arr[i + 1], arr[high]);
+        return (i + 1);
+    }
+};
+
+// 具体策略：STL排序
+class STLSortStrategy : public SortStrategy {
+public:
+    void sort(std::vector<int>& data) override {
+        std::cout << "使用STL排序..." << std::endl;
+        std::sort(data.begin(), data.end());
+    }
+
+    std::string getName() const override {
+        return "STL排序";
+    }
+};
+
+// 上下文：排序器
+class Sorter {
+private:
+    std::unique_ptr<SortStrategy> strategy;
+
+public:
+    void setStrategy(std::unique_ptr<SortStrategy> newStrategy) {
+        strategy = std::move(newStrategy);
+    }
+
+    void performSort(std::vector<int>& data) {
+        if (strategy) {
+            std::cout << "当前策略: " << strategy->getName() << std::endl;
+
+            // 显示排序前的数据
+            std::cout << "排序前: ";
+            for (int num : data) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+
+            // 执行排序
+            auto start = std::chrono::high_resolution_clock::now();
+            strategy->sort(data);
+            auto end = std::chrono::high_resolution_clock::now();
+
+            // 显示排序后的数据
+            std::cout << "排序后: ";
+            for (int num : data) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+
+            // 显示耗时
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+            std::cout << "耗时: " << duration.count() << " 微秒" << std::endl;
+        } else {
+            std::cout << "没有设置排序策略！" << std::endl;
+        }
+    }
+};
+
+void strategyPatternExample() {
+    std::cout << "\n=== 策略模式示例 ===" << std::endl;
+
+    Sorter sorter;
+
+    // 准备测试数据
+    std::vector<int> data1 = {64, 34, 25, 12, 22, 11, 90};
+    std::vector<int> data2 = data1;  // 复制一份
+    std::vector<int> data3 = data1;  // 再复制一份
+
+    // 使用冒泡排序
+    std::cout << "\n--- 使用冒泡排序 ---" << std::endl;
+    sorter.setStrategy(std::make_unique<BubbleSortStrategy>());
+    sorter.performSort(data1);
+
+    // 使用快速排序
+    std::cout << "\n--- 使用快速排序 ---" << std::endl;
+    sorter.setStrategy(std::make_unique<QuickSortStrategy>());
+    sorter.performSort(data2);
+
+    // 使用STL排序
+    std::cout << "\n--- 使用STL排序 ---" << std::endl;
+    sorter.setStrategy(std::make_unique<STLSortStrategy>());
+    sorter.performSort(data3);
+}
+
+## 架构设计原则
+
+**什么是软件架构？**
+软件架构就像建房子的蓝图，决定了整个系统的结构。好的架构让系统易于理解、维护和扩展，就像好的房屋设计让人住得舒适一样。
+
+### 核心架构原则
+
+#### 1. 关注点分离 (Separation of Concerns)
+
+**原则说明：**
+每个模块只关心自己的事情，就像餐厅里厨师只管做菜，服务员只管上菜，收银员只管收钱。
+
+```cpp
+// 错误示例：一个类做太多事情
+class BadUserManager {
+public:
+    // 用户业务逻辑
+    bool validateUser(const std::string& username, const std::string& password) {
+        // 验证逻辑
+        return username.length() > 3 && password.length() > 6;
+    }
+
+    // 数据库操作
+    void saveToDatabase(const std::string& username) {
+        std::cout << "保存用户到数据库: " << username << std::endl;
+    }
+
+    // 日志记录
+    void logActivity(const std::string& activity) {
+        std::cout << "[LOG] " << activity << std::endl;
+    }
+
+    // 邮件发送
+    void sendWelcomeEmail(const std::string& email) {
+        std::cout << "发送欢迎邮件到: " << email << std::endl;
+    }
+};
+
+// 正确示例：关注点分离
+class User {
+private:
+    std::string username;
+    std::string email;
+
+public:
+    User(const std::string& name, const std::string& mail)
+        : username(name), email(mail) {}
+
+    std::string getUsername() const { return username; }
+    std::string getEmail() const { return email; }
+};
+
+class UserValidator {
+public:
+    bool validate(const std::string& username, const std::string& password) {
+        return username.length() > 3 && password.length() > 6;
+    }
+};
+
+class UserRepository {
+public:
+    void save(const User& user) {
+        std::cout << "保存用户到数据库: " << user.getUsername() << std::endl;
+    }
+};
+
+class Logger {
+public:
+    void log(const std::string& message) {
+        std::cout << "[LOG] " << message << std::endl;
+    }
+};
+
+class EmailService {
+public:
+    void sendWelcomeEmail(const std::string& email) {
+        std::cout << "发送欢迎邮件到: " << email << std::endl;
+    }
+};
+
+// 用户服务：协调各个组件
+class UserService {
+private:
+    UserValidator validator;
+    UserRepository repository;
+    Logger logger;
+    EmailService emailService;
+
+public:
+    bool registerUser(const std::string& username, const std::string& password, const std::string& email) {
+        logger.log("开始用户注册: " + username);
+
+        if (!validator.validate(username, password)) {
+            logger.log("用户验证失败: " + username);
+            return false;
+        }
+
+        User user(username, email);
+        repository.save(user);
+        emailService.sendWelcomeEmail(email);
+
+        logger.log("用户注册成功: " + username);
+        return true;
+    }
+};
+```
+
+#### 2. 高内聚，低耦合
+
+**原则说明：**
+- **高内聚**：一个模块内部的元素紧密相关，就像一个足球队，队员之间配合默契
+- **低耦合**：不同模块之间依赖尽可能少，就像不同部门之间只通过接口交流
+
+```cpp
+// 低内聚，高耦合的错误示例
+class BadOrderProcessor {
+public:
+    void processOrder() {
+        // 直接操作数据库
+        std::cout << "连接数据库..." << std::endl;
+        std::cout << "查询库存..." << std::endl;
+
+        // 直接发送邮件
+        std::cout << "连接邮件服务器..." << std::endl;
+        std::cout << "发送确认邮件..." << std::endl;
+
+        // 直接处理支付
+        std::cout << "连接支付网关..." << std::endl;
+        std::cout << "处理支付..." << std::endl;
+
+        // 所有逻辑混在一起，难以维护和测试
+    }
+};
+
+// 高内聚，低耦合的正确示例
+class Order {
+private:
+    std::string orderId;
+    double amount;
+    std::string customerEmail;
+
+public:
+    Order(const std::string& id, double amt, const std::string& email)
+        : orderId(id), amount(amt), customerEmail(email) {}
+
+    std::string getOrderId() const { return orderId; }
+    double getAmount() const { return amount; }
+    std::string getCustomerEmail() const { return customerEmail; }
+};
+
+// 高内聚：库存管理相关的所有功能在一起
+class InventoryService {
+public:
+    bool checkStock(const std::string& productId, int quantity) {
+        std::cout << "检查产品 " << productId << " 的库存..." << std::endl;
+        return true;  // 简化实现
+    }
+
+    void reserveStock(const std::string& productId, int quantity) {
+        std::cout << "预留产品 " << productId << " 库存 " << quantity << " 件" << std::endl;
+    }
+
+    void releaseStock(const std::string& productId, int quantity) {
+        std::cout << "释放产品 " << productId << " 库存 " << quantity << " 件" << std::endl;
+    }
+};
+
+// 高内聚：支付相关的所有功能在一起
+class PaymentService {
+public:
+    bool processPayment(const Order& order) {
+        std::cout << "处理订单 " << order.getOrderId()
+                  << " 的支付，金额: " << order.getAmount() << std::endl;
+        return true;  // 简化实现
+    }
+
+    void refund(const Order& order) {
+        std::cout << "退款订单 " << order.getOrderId() << std::endl;
+    }
+};
+
+// 高内聚：通知相关的所有功能在一起
+class NotificationService {
+public:
+    void sendOrderConfirmation(const Order& order) {
+        std::cout << "发送订单确认邮件到: " << order.getCustomerEmail() << std::endl;
+    }
+
+    void sendShippingNotification(const Order& order) {
+        std::cout << "发送发货通知到: " << order.getCustomerEmail() << std::endl;
+    }
+};
+
+// 低耦合：通过接口依赖，而不是具体实现
+class GoodOrderProcessor {
+private:
+    InventoryService& inventoryService;
+    PaymentService& paymentService;
+    NotificationService& notificationService;
+
+public:
+    GoodOrderProcessor(InventoryService& inventory,
+                      PaymentService& payment,
+                      NotificationService& notification)
+        : inventoryService(inventory)
+        , paymentService(payment)
+        , notificationService(notification) {}
+
+    bool processOrder(const Order& order) {
+        std::cout << "开始处理订单: " << order.getOrderId() << std::endl;
+
+        // 检查库存
+        if (!inventoryService.checkStock("product123", 1)) {
+            std::cout << "库存不足" << std::endl;
+            return false;
+        }
+
+        // 预留库存
+        inventoryService.reserveStock("product123", 1);
+
+        // 处理支付
+        if (!paymentService.processPayment(order)) {
+            std::cout << "支付失败，释放库存" << std::endl;
+            inventoryService.releaseStock("product123", 1);
+            return false;
+        }
+
+        // 发送确认通知
+        notificationService.sendOrderConfirmation(order);
+
+        std::cout << "订单处理成功: " << order.getOrderId() << std::endl;
+        return true;
+    }
+};
+
+void architecturePrinciplesExample() {
+    std::cout << "\n=== 架构设计原则示例 ===" << std::endl;
+
+    // 创建服务实例
+    InventoryService inventory;
+    PaymentService payment;
+    NotificationService notification;
+
+    // 创建订单处理器（依赖注入）
+    GoodOrderProcessor processor(inventory, payment, notification);
+
+    // 创建订单
+    Order order("ORDER-001", 99.99, "customer@example.com");
+
+    // 处理订单
+    processor.processOrder(order);
+}
+```
+
+#### 3. 组合优于继承
+
+**原则说明：**
+优先使用组合而不是继承来复用代码，就像组装电脑比定制电脑更灵活一样。
+
+```cpp
+// 继承方式（不够灵活）
+class Bird {
+public:
+    virtual void fly() {
+        std::cout << "鸟儿在飞翔" << std::endl;
+    }
+
+    virtual void swim() {
+        std::cout << "鸟儿在游泳" << std::endl;
+    }
+};
+
+class Duck : public Bird {
+public:
+    void fly() override {
+        std::cout << "鸭子在飞翔" << std::endl;
+    }
+
+    void swim() override {
+        std::cout << "鸭子在游泳" << std::endl;
+    }
+};
+
+class Penguin : public Bird {
+public:
+    void fly() override {
+        throw std::runtime_error("企鹅不会飞！");  // 违反里氏替换原则
+    }
+
+    void swim() override {
+        std::cout << "企鹅在游泳" << std::endl;
+    }
+};
+
+// 组合方式（更灵活）
+class FlyBehavior {
+public:
+    virtual ~FlyBehavior() = default;
+    virtual void fly() = 0;
+};
+
+class CanFly : public FlyBehavior {
+public:
+    void fly() override {
+        std::cout << "用翅膀飞翔" << std::endl;
+    }
+};
+
+class CannotFly : public FlyBehavior {
+public:
+    void fly() override {
+        std::cout << "不会飞" << std::endl;
+    }
+};
+
+class SwimBehavior {
+public:
+    virtual ~SwimBehavior() = default;
+    virtual void swim() = 0;
+};
+
+class CanSwim : public SwimBehavior {
+public:
+    void swim() override {
+        std::cout << "在水中游泳" << std::endl;
+    }
+};
+
+class CannotSwim : public SwimBehavior {
+public:
+    void swim() override {
+        std::cout << "不会游泳" << std::endl;
+    }
+};
+
+// 使用组合的鸟类
+class FlexibleBird {
+private:
+    std::unique_ptr<FlyBehavior> flyBehavior;
+    std::unique_ptr<SwimBehavior> swimBehavior;
+    std::string name;
+
+public:
+    FlexibleBird(const std::string& birdName,
+                std::unique_ptr<FlyBehavior> fly,
+                std::unique_ptr<SwimBehavior> swim)
+        : name(birdName)
+        , flyBehavior(std::move(fly))
+        , swimBehavior(std::move(swim)) {}
+
+    void performFly() {
+        std::cout << name << ": ";
+        flyBehavior->fly();
+    }
+
+    void performSwim() {
+        std::cout << name << ": ";
+        swimBehavior->swim();
+    }
+
+    // 可以动态改变行为
+    void setFlyBehavior(std::unique_ptr<FlyBehavior> fly) {
+        flyBehavior = std::move(fly);
+    }
+
+    void setSwimBehavior(std::unique_ptr<SwimBehavior> swim) {
+        swimBehavior = std::move(swim);
+    }
+};
+
+void compositionOverInheritanceExample() {
+    std::cout << "\n=== 组合优于继承示例 ===" << std::endl;
+
+    // 创建不同的鸟类
+    FlexibleBird duck("鸭子",
+                     std::make_unique<CanFly>(),
+                     std::make_unique<CanSwim>());
+
+    FlexibleBird penguin("企鹅",
+                        std::make_unique<CannotFly>(),
+                        std::make_unique<CanSwim>());
+
+    FlexibleBird eagle("老鹰",
+                      std::make_unique<CanFly>(),
+                      std::make_unique<CannotSwim>());
+
+    // 测试行为
+    duck.performFly();
+    duck.performSwim();
+
+    penguin.performFly();
+    penguin.performSwim();
+
+    eagle.performFly();
+    eagle.performSwim();
+
+    std::cout << "\n--- 动态改变行为 ---" << std::endl;
+
+    // 假设企鹅学会了飞行（科幻场景）
+    penguin.setFlyBehavior(std::make_unique<CanFly>());
+    std::cout << "企鹅经过训练后：" << std::endl;
+    penguin.performFly();
+}
 
 ## 架构设计原则
 
