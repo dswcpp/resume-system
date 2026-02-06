@@ -1,0 +1,13 @@
+{
+  "id": "qt_009",
+  "question": "Qt的对象树机制及内存管理方式是什么？",
+  "tags": [
+    "对象树",
+    "内存管理",
+    "QObject"
+  ],
+  "difficulty": 1,
+  "hint": "父对象删除时自动删除所有子对象",
+  "answer": "Qt的对象树(Object Tree)是QObject内置的层级关系管理机制。通过构造函数传入parent或调用setParent()建立父子关系。核心行为：父对象析构时自动delete所有子对象，递归向下清理整棵树。注意事项：(1)栈上创建的子对象可能导致双重析构；(2)moveToThread要求对象没有parent；(3)子对象的析构顺序是添加的逆序。",
+  "source": "Qt面试准备.md"
+}

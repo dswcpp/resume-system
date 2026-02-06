@@ -1,0 +1,13 @@
+{
+  "id": "qt_008",
+  "question": "信号连接的对象被销毁了会怎样？如何防止内存泄漏？",
+  "tags": [
+    "信号槽",
+    "生命周期",
+    "内存安全"
+  ],
+  "difficulty": 2,
+  "hint": "Qt自动断开机制+QPointer+父子对象关系",
+  "answer": "当QObject被销毁时，Qt自动断开该对象所有的信号槽连接(无论作为sender还是receiver)。Lambda连接如果没指定receiver，Lambda中的this可能悬空。QPointer是弱引用智能指针，可用于检查QObject是否仍然存活。父子对象关系(setParent)是Qt内存管理的基石：父对象删除时递归删除所有子对象。",
+  "source": "Qt信号槽深度解析.md"
+}

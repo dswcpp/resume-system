@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.InterviewPrep" parent="Theme.Material3.Light.NoActionBar">
+        <!-- &#x4E3B;&#x8272; -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/border_light</item>
+        <item name="colorOnPrimaryContainer">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+
+        <!-- &#x8868;&#x9762;/&#x80CC;&#x666F; -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/border_light</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+
+        <!-- &#x8F6E;&#x5ED3;&#x7EBF; -->
+        <item name="colorOutline">@color/border</item>
+        <item name="colorOutlineVariant">@color/border_light</item>
+
+        <!-- &#x72B6;&#x6001;&#x680F; -->
+        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- &#x5168;&#x5C40;&#x5361;&#x7247;&#x6837;&#x5F0F;: &#x65E0;&#x9634;&#x5F71; -->
+        <item name="materialCardViewStyle">@style/Widget.InterviewPrep.Card</item>
+
+        <!-- &#x5168;&#x5C40; Toolbar &#x6837;&#x5F0F; -->
+        <item name="materialToolbarStyle">@style/Widget.InterviewPrep.Toolbar</item>
+
+        <!-- BottomSheet &#x6837;&#x5F0F; -->
+        <item name="bottomSheetDialogTheme">@style/Theme.InterviewPrep.BottomSheet</item>
+    </style>
+
+    <!-- &#x5361;&#x7247;: &#x767D;&#x5E95; + 1px&#x8FB9;&#x6846; + &#x65E0;&#x9634;&#x5F71; -->
+    <style name="Widget.InterviewPrep.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Toolbar: &#x767D;&#x5E95; + &#x5E95;&#x90E8;&#x5206;&#x5272;&#x7EBF;&#x6548;&#x679C; -->
+    <style name="Widget.InterviewPrep.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/surface</item>
+        <item name="titleTextColor">@color/on_surface</item>
+    </style>
+
+    <!-- BottomSheet: &#x767D;&#x8272;&#x5706;&#x89D2; -->
+    <style name="Theme.InterviewPrep.BottomSheet" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorOutline">@color/border</item>
+        <item name="bottomSheetStyle">@style/Widget.InterviewPrep.BottomSheet</item>
+    </style>
+
+    <style name="Widget.InterviewPrep.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="backgroundTint">@color/surface</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.InterviewPrep.BottomSheet</item>
+    </style>
+
+    <style name="ShapeAppearance.InterviewPrep.BottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">&#x9762;&#x8BD5;&#x81EA;&#x6D4B;</string>
+    <string name="home_title">&#x9762;&#x8BD5;&#x6A21;&#x62DF;&#x81EA;&#x6D4B;</string>
+    <string name="home_subtitle">&#x70B9;&#x51FB;&#x5206;&#x7C7B;&#x5F00;&#x59CB;&#x7EC3;&#x4E60;&#xFF0C;&#x81EA;&#x8BC4;&#x8FDB;&#x5EA6;&#x672C;&#x5730;&#x4FDD;&#x5B58;</string>
+    <string name="btn_stats">&#x7EC3;&#x4E60;&#x7EDF;&#x8BA1;</string>
+    <string name="btn_clear">&#x6E05;&#x9664;&#x8FDB;&#x5EA6;</string>
+    <string name="btn_hint">&#x63D0;&#x793A;</string>
+    <string name="btn_reveal">&#x67E5;&#x770B;&#x7B54;&#x6848;</string>
+    <string name="btn_detail">&#x8BE6;&#x89E3;</string>
+    <string name="btn_hide">&#x6536;&#x8D77;</string>
+    <string name="btn_prev">&#x4E0A;&#x4E00;&#x9898;</string>
+    <string name="btn_next">&#x4E0B;&#x4E00;&#x9898;</string>
+    <string name="rate_mastered">&#x719F;&#x7EC3;</string>
+    <string name="rate_fuzzy">&#x6A21;&#x7CCA;</string>
+    <string name="rate_failed">&#x4E0D;&#x4F1A;</string>
+    <string name="self_rate_label">&#x81EA;&#x6211;&#x8BC4;&#x4F30;&#xFF1A;</string>
+    <string name="answer_label">&#x53C2;&#x8003;&#x7B54;&#x6848;</string>
+    <string name="detail_label">&#x6DF1;&#x5EA6;&#x8BE6;&#x89E3;</string>
+    <string name="stats_title">&#x7EC3;&#x4E60;&#x7EDF;&#x8BA1;</string>
+    <string name="quickref_title">&#x901F;&#x67E5;</string>
+    <string name="quickref_search_hint">&#x641C;&#x7D22;&#x95EE;&#x9898;&#x3001;&#x5173;&#x952E;&#x8BCD;&#x2026;</string>
+    <string name="no_questions">&#x5F53;&#x524D;&#x7B5B;&#x9009;&#x6761;&#x4EF6;&#x4E0B;&#x6CA1;&#x6709;&#x9898;&#x76EE;</string>
+    <string name="progress_format">&#x7B2C; %1$d / %2$d &#x9898;</string>
+    <string name="practiced_format">%1$d &#x9898; &#x00B7; &#x5DF2;&#x7EC3; %2$d &#x9898; (%3$d%%)</string>
+    <string name="confirm_clear_title">&#x786E;&#x8BA4;&#x6E05;&#x9664;&#x6240;&#x6709;&#x8FDB;&#x5EA6;&#xFF1F;</string>
+    <string name="confirm_clear_msg">&#x6B64;&#x64CD;&#x4F5C;&#x4E0D;&#x53EF;&#x64A4;&#x9500;&#xFF0C;&#x6240;&#x6709;&#x7EC3;&#x4E60;&#x8BB0;&#x5F55;&#x5C06;&#x88AB;&#x6E05;&#x9664;&#x3002;</string>
+    <string name="cancel">&#x53D6;&#x6D88;</string>
+    <string name="confirm">&#x786E;&#x8BA4;&#x6E05;&#x9664;</string>
+    <string name="complete_title">&#x672C;&#x8F6E;&#x7EC3;&#x4E60;&#x5B8C;&#x6210;&#xFF01;</string>
+    <string name="back_home">&#x8FD4;&#x56DE;&#x9996;&#x9875;</string>
+    <string name="restart">&#x518D;&#x7EC3;&#x4E00;&#x8F6E;</string>
+    <string name="total">&#x603B;&#x9898;&#x6570;</string>
+    <string name="loading_detail">&#x52A0;&#x8F7D;&#x8BE6;&#x89E3;&#x2026;</string>
+    <string name="no_detail">&#x6682;&#x65E0;&#x8BE6;&#x89E3;&#x5185;&#x5BB9;</string>
+    <string name="filter_all_difficulty">&#x5168;&#x90E8;&#x96BE;&#x5EA6;</string>
+    <string name="filter_all_status">&#x5168;&#x90E8;&#x72B6;&#x6001;</string>
+    <string name="difficulty_1">&#x57FA;&#x7840;</string>
+    <string name="difficulty_2">&#x4E2D;&#x7B49;</string>
+    <string name="difficulty_3">&#x6DF1;&#x5EA6;</string>
+    <string name="overall_progress">&#x603B;&#x4F53;&#x8FDB;&#x5EA6;</string>
+    <string name="practice_label">&#x7EC3;&#x4E60;</string>
+    <string name="stat_mastered_format">&#x719F;&#x7EC3; %1$d</string>
+    <string name="stat_fuzzy_format">&#x6A21;&#x7CCA; %1$d</string>
+    <string name="stat_failed_format">&#x4E0D;&#x4F1A; %1$d</string>
+</resources>

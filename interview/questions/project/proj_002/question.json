@@ -1,0 +1,9 @@
+{
+  "id": "proj_002",
+  "question": "集成周期从3个月缩短到约50天，具体怎么做到的？",
+  "tags": ["模块化", "集成框架", "架构设计"],
+  "difficulty": 2,
+  "hint": "统一接口规范+模块热插拔+标准化流程",
+  "answer": "T95需集成TEV、UHF、AE、红外等检测模块，原来每个模块从零开发连接管理、协议解析、数据处理、UI，加上联调约14周。我设计了IDetectionModule抽象基类，定义生命周期(initialize/shutdown)、连接管理(connect/disconnect)、数据采集(start/stop)三层接口，配合ModuleFactory工厂注册机制和ModuleManager统一管理。同时抽取通用基础设施：ConnectionStateMachine处理连接状态、FrameParser通用帧解析、DataPipeline数据处理管线。新模块只需继承接口、复用基础设施，注册即可集成。实际验证：红外模块首个用新框架，5周完成；后续模块稳定在4-6周。",
+  "source": "深度问题_模块集成优化.md"
+}

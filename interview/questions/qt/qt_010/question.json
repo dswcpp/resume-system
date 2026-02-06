@@ -1,0 +1,13 @@
+{
+  "id": "qt_010",
+  "question": "调试信号槽问题有什么实用技巧？",
+  "tags": [
+    "信号槽",
+    "调试",
+    "QSignalSpy"
+  ],
+  "difficulty": 2,
+  "hint": "QSignalSpy验证信号触发、lambda加日志、检查事件循环",
+  "answer": "调试信号槽问题有几个实用技巧：(1)QSignalSpy：监听信号触发次数和参数。(2)connect返回值检查。(3)中间Lambda加日志。(4)环境变量QT_FATAL_WARNINGS=1。(5)检查事件循环：Queued连接需要接收者线程有运行中的事件循环。(6)dumpObjectInfo()/dumpObjectTree()。",
+  "source": "Qt信号槽深度解析.md"
+}

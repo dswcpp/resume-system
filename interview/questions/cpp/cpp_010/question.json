@@ -1,0 +1,9 @@
+﻿{
+  "id": "cpp_010",
+  "question": "C++11/14/17分别带来了哪些重要特性？",
+  "tags": ["C++11", "C++14", "C++17", "现代C++"],
+  "difficulty": 1,
+  "hint": "C++11是分水岭",
+  "answer": "C++11(分水岭)：auto类型推导、范围for、lambda表达式、智能指针、移动语义和右值引用、std::thread多线程库、std::atomic、constexpr、nullptr、enum class、变参模板。C++14(小改进)：泛型lambda(auto参数)、返回值auto推导、make_unique、变量模板。C++17(实用增强)：结构化绑定(auto [x,y]=pair)、if constexpr编译期分支、std::optional/variant/any、std::string_view、并行STL算法、折叠表达式、CTAD、filesystem库。",
+  "source": "现代C++与多线程面试回答模板.md"
+}

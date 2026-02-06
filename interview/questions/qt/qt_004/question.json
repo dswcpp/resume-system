@@ -1,0 +1,13 @@
+{
+  "id": "qt_004",
+  "question": "QThread的正确用法是什么？继承vs moveToThread？",
+  "tags": [
+    "QThread",
+    "moveToThread",
+    "Worker模式"
+  ],
+  "difficulty": 2,
+  "hint": "推荐Worker+moveToThread模式",
+  "answer": "QThread有两种常见用法：(1)继承QThread重写run()：整个run()函数体在新线程执行，但槽函数默认仍在创建者线程执行，容易引发混淆。(2)Worker+moveToThread模式（推荐）：创建QObject派生的Worker类封装业务逻辑，将Worker通过moveToThread()移到QThread中，Worker的槽函数自动在新线程的事件循环中执行。关键注意点：Worker不能有父对象才能moveToThread；线程结束时要正确清理(deleteLater)；moveToThread后不能直接调Worker的方法，必须通过信号触发。",
+  "source": "Qt信号槽_QThread_UI性能优化面试回答模板.md"
+}

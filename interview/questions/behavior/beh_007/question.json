@@ -1,0 +1,9 @@
+{
+  "id": "beh_007",
+  "question": "你如何保持技术更新和学习？",
+  "tags": ["学习能力", "职业发展"],
+  "difficulty": 1,
+  "hint": "技术书+社区+实践+内部分享",
+  "answer": "四个渠道：(1)系统学习——每月读1-2本技术书，最近在读《C++ Concurrency in Action》和《Effective Modern C++》；(2)社区跟踪——活跃于GitHub和StackOverflow，关注C++标准提案和知名开源项目(如folly、abseil)的更新；(3)动手实践——业余用ESP32+树莓派做智能家居项目，把工作中学到的状态机、通信协议、实时处理应用到个人项目；(4)团队分享——在公司组织过'C++性能优化'、'状态机设计模式'技术分享，准备分享材料的过程本身就是深度学习。实际案例：研究无锁队列时读了Lamport的论文和folly的ProducerConsumerQueue实现，理解原理后应用到T95项目，延迟从200ms降到50ms。",
+  "source": "完整面试问题清单.md"
+}

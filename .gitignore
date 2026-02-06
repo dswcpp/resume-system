@@ -26,4 +26,45 @@ $RECYCLE.BIN/
 # Cursor rules
 .rules/.cursorrules
 
-# Resume files
+# Resume files - 简历输出文件（含个人隐私信息）
+*.pdf
+*.docx
+段胜炜*.pdf
+段胜炜*.docx
+
+# Obsidian
+.obsidian/workspace.json
+
+# ===== Android =====
+# Gradle
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+
+# Gradle wrapper binary (保留 properties)
+android/gradle/wrapper/gradle-wrapper.jar
+
+# APK / AAB 产物
+android/**/*.apk
+android/**/*.aab
+android/**/*.ap_
+android/**/*.dex
+
+# Android Studio
+android/*.iml
+android/app/*.iml
+android/.cxx/
+android/.externalNativeBuild/
+android/captures/
+
+# 离线 JS 库 (体积大，用户自行下载)
+android/app/src/main/assets/web/marked.min.js
+android/app/src/main/assets/web/mermaid.min.js
+android/app/src/main/assets/web/highlight.min.js
+android/app/src/main/assets/web/cpp.min.js
+android/app/src/main/assets/web/highlight-github.min.css
+
+# Assets 题目数据 (从 interview/questions/ 复制，避免重复存储)
+android/app/src/main/assets/questions/

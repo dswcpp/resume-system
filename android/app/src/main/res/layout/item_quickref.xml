@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="4dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- &#x5206;&#x7C7B;&#x6807;&#x9898; (&#x4EC5;&#x5206;&#x7EC4;&#x5934;&#x90E8;&#x663E;&#x793A;) -->
+    <TextView
+        android:id="@+id/tv_group_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- &#x72B6;&#x6001;&#x5706;&#x70B9; -->
+        <View
+            android:id="@+id/dot_status"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/unknown" />
+
+        <!-- &#x9898;&#x76EE;&#x6587;&#x5B57; -->
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/on_surface"
+            android:textSize="13sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.2" />
+    </LinearLayout>
+</LinearLayout>

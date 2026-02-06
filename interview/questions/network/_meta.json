@@ -1,0 +1,5 @@
+{
+  "category": "网络与通信",
+  "icon": "fa-network-wired",
+  "questions": ["net_001","net_002","net_003","net_004","net_005","net_006","net_007","net_008","net_009","net_010"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "net_004",
+  "question": "select、poll、epoll的区别？",
+  "tags": ["I/O多路复用", "epoll", "高并发"],
+  "difficulty": 2,
+  "hint": "select有1024限制,poll无限制但遍历,epoll事件驱动O(1)",
+  "answer": "三者都是I/O多路复用机制，用一个线程监控多个fd。select：fd_set位图最多1024个fd，每次调用需重新设置，内核遍历所有fd检查就绪态，O(n)复杂度。poll：用pollfd数组取代位图，无数量限制，但仍然O(n)遍历。epoll：Linux特有，epoll_create创建实例，epoll_ctl注册/修改/删除fd，epoll_wait获取就绪fd。核心优势：红黑树管理fd注册O(logN)，就绪列表直接返回活跃fd O(1)，回调机制不需遍历全部fd。支持ET(边缘触发)和LT(水平触发)两种模式，ET配合非阻塞IO性能更高但编程复杂。适用场景：连接数多但活跃连接少时epoll优势最大。",
+  "source": "网络编程面试准备.md"
+}

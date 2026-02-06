@@ -1,0 +1,5 @@
+{
+  "category": "Qt框架",
+  "icon": "fa-desktop",
+  "questions": ["qt_001","qt_002","qt_003","qt_004","qt_005","qt_006","qt_007","qt_008","qt_009","qt_010"]
+}

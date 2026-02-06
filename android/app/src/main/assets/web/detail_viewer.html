@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+    <link rel="stylesheet" href="file:///android_asset/web/detail_style.css">
+    <link rel="stylesheet" href="file:///android_asset/web/highlight-github.min.css">
+    <script src="file:///android_asset/web/marked.min.js"></script>
+    <script src="file:///android_asset/web/highlight.min.js"></script>
+    <script src="file:///android_asset/web/cpp.min.js"></script>
+    <script src="file:///android_asset/web/mermaid.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'system-ui, sans-serif'
+        });
+
+        // 配置 marked
+        var renderer = new marked.Renderer();
+        renderer.code = function(code, language) {
+            // 兼容 marked v12: code 可能是对象 { text, lang }
+            var text = typeof code === 'object' ? code.text : code;
+            var lang = typeof code === 'object' ? code.lang : language;
+
+            if (lang === 'mermaid') {
+                var id = 'mermaid-' + Math.random().toString(36).substring(2, 11);
+                return '<div class="mermaid-placeholder" id="' + id + '">' + text + '</div>';
+            }
+            if (lang && typeof hljs !== 'undefined' && hljs.getLanguage(lang)) {
+                try {
+                    var highlighted = hljs.highlight(text, { language: lang }).value;
+                    return '<pre><code class="hljs language-' + lang + '">' + highlighted + '</code></pre>';
+                } catch (e) {}
+            }
+            return '<pre><code>' + (text || '').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code></pre>';
+        };
+
+        marked.setOptions({ renderer: renderer, breaks: true });
+
+        // 渲染 Markdown 内容 — 暴露到全局 window 上供 Android evaluateJavascript 调用
+        window.renderMarkdown = function(md) {
+            var el = document.getElementById('content');
+            if (!el) return;
+            el.innerHTML = marked.parse(md);
+
+            // 渲染 Mermaid 图
+            var placeholders = document.querySelectorAll('.mermaid-placeholder');
+            placeholders.forEach(function(ph) {
+                try {
+                    mermaid.render(ph.id + '-svg', ph.textContent.trim()).then(function(result) {
+                        ph.innerHTML = result.svg;
+                        ph.classList.add('mermaid-rendered');
+                    }).catch(function(err) {
+                        ph.innerHTML = '<pre class="mermaid-error">图表渲染失败: ' + (err.message || err) + '</pre>';
+                    });
+                } catch (e) {
+                    ph.innerHTML = '<pre class="mermaid-error">' + (e.message || e) + '</pre>';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

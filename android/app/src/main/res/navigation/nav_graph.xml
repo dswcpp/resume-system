@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- &#x9996;&#x9875; -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dswcpp.interview.ui.home.HomeFragment"
+        android:label="@string/home_title">
+
+        <action
+            android:id="@+id/action_home_to_practice"
+            app:destination="@id/practiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_home_to_stats"
+            app:destination="@id/statsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- &#x7EC3;&#x4E60;&#x9875; -->
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.dswcpp.interview.ui.practice.PracticeFragment"
+        android:label="@string/practice_label">
+
+        <argument
+            android:name="categoryKey"
+            app:argType="string" />
+
+        <argument
+            android:name="questionIndex"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <action
+            android:id="@+id/action_practice_to_detail"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- &#x8BE6;&#x89E3;&#x9875; -->
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.dswcpp.interview.ui.detail.DetailFragment"
+        android:label="@string/detail_label">
+
+        <argument
+            android:name="categoryKey"
+            app:argType="string" />
+
+        <argument
+            android:name="questionId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- &#x7EDF;&#x8BA1;&#x9875; -->
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.dswcpp.interview.ui.stats.StatsFragment"
+        android:label="@string/stats_title" />
+
+    <!-- &#x5168;&#x5C40; action: &#x4ECE;&#x4EFB;&#x610F;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#x5230;&#x7EC3;&#x4E60;&#x9875; (&#x901F;&#x67E5;&#x9762;&#x677F;&#x7528;) -->
+    <action
+        android:id="@+id/action_global_practice"
+        app:destination="@id/practiceFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/homeFragment" />
+
+</navigation>

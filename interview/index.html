@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试模拟自测系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== 首页 ===== -->
+<div id="page-home" class="page active">
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-brain"></i> 面试模拟自测</h1>
+            <p class="subtitle">点击分类开始练习，自评进度本地保存</p>
+        </header>
+
+        <div class="home-content">
+            <div class="category-grid" id="category-grid">
+                <!-- 由 JS 动态填充 -->
+            </div>
+
+            <div class="home-actions">
+                <button class="neu-btn" onclick="app.showStats()">
+                    <i class="fas fa-chart-pie"></i> 练习统计
+                </button>
+                <button class="neu-btn btn-danger" onclick="app.confirmClearProgress()">
+                    <i class="fas fa-trash-alt"></i> 清除进度
+                </button>
+                <button class="neu-btn" onclick="app.exportProgress()">
+                    <i class="fas fa-download"></i> 导出进度
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 练习页 ===== -->
+<div id="page-practice" class="page">
+    <div class="container">
+        <div class="practice-header">
+            <button class="neu-btn btn-back" onclick="app.goHome()">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <div class="practice-info">
+                <h2 id="practice-category-name"></h2>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" id="practice-progress-bar"></div>
+                </div>
+                <span class="progress-text" id="practice-progress-text"></span>
+            </div>
+            <div class="practice-controls">
+                <select id="difficulty-filter" class="neu-select" onchange="app.filterByDifficulty()">
+                    <option value="all">全部难度</option>
+                    <option value="1">⭐ 基础</option>
+                    <option value="2">⭐⭐ 中等</option>
+                    <option value="3">⭐⭐⭐ 深度</option>
+                </select>
+                <select id="status-filter" class="neu-select" onchange="app.filterByStatus()">
+                    <option value="all">全部状态</option>
+                    <option value="unknown">未练习</option>
+                    <option value="failed">不会</option>
+                    <option value="fuzzy">模糊</option>
+                    <option value="mastered">熟练</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="practice-layout" id="practice-layout">
+            <!-- 左侧详解面板 -->
+            <aside class="detail-panel" id="detail-panel">
+                <div class="detail-panel-header">
+                    <span class="detail-label"><i class="fas fa-book-open"></i> 深度详解</span>
+                    <button class="neu-btn btn-sm" onclick="app.hideDetail()">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="detail-panel-body answer-content" id="detail-content"></div>
+            </aside>
+
+            <!-- 右侧主区域 -->
+            <div class="practice-main">
+                <div class="question-card-wrap" id="question-card-wrap">
+                    <div class="question-card" id="question-card">
+                        <div class="card-front" id="card-front">
+                            <div class="question-meta">
+                                <span class="question-id" id="question-id"></span>
+                                <span class="question-difficulty" id="question-difficulty"></span>
+                            </div>
+                            <div class="question-tags" id="question-tags"></div>
+                            <div class="question-text" id="question-text"></div>
+                            <div class="card-actions">
+                                <button class="neu-btn btn-hint" id="btn-hint" onclick="app.showHint()">
+                                    <i class="fas fa-lightbulb"></i> 提示
+                                </button>
+                                <button class="neu-btn btn-reveal" onclick="app.revealAnswer()">
+                                    <i class="fas fa-eye"></i> 查看答案
+                                </button>
+                            </div>
+                            <div class="hint-box" id="hint-box"></div>
+                        </div>
+                        <div class="card-back" id="card-back">
+                            <div class="answer-header">
+                                <span class="answer-label"><i class="fas fa-check-circle"></i> 参考答案</span>
+                                <div class="answer-header-actions">
+                                    <button class="neu-btn btn-sm btn-detail" onclick="app.showDetail()">
+                                        <i class="fas fa-book-open"></i> 详解
+                                    </button>
+                                    <button class="neu-btn btn-sm" onclick="app.hideAnswer()">
+                                        <i class="fas fa-eye-slash"></i> 收起
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="answer-content" id="answer-content"></div>
+                            <div class="self-rate">
+                                <span class="rate-label">自我评估：</span>
+                                <button class="rate-btn rate-mastered" onclick="app.rate('mastered')">
+                                    <i class="fas fa-check-double"></i> 熟练
+                                </button>
+                                <button class="rate-btn rate-fuzzy" onclick="app.rate('fuzzy')">
+                                    <i class="fas fa-question"></i> 模糊
+                                </button>
+                                <button class="rate-btn rate-failed" onclick="app.rate('failed')">
+                                    <i class="fas fa-times"></i> 不会
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-nav">
+                    <button class="neu-btn" id="btn-prev" onclick="app.prevQuestion()">
+                        <i class="fas fa-chevron-left"></i> 上一题
+                    </button>
+                    <div class="question-dots" id="question-dots"></div>
+                    <button class="neu-btn" id="btn-next" onclick="app.nextQuestion()">
+                        下一题 <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 全局速查面板（右侧固定） ===== -->
+<aside class="ref-panel" id="ref-panel">
+    <div class="ref-panel-header">
+        <span class="ref-panel-title"><i class="fas fa-bolt"></i> 速查</span>
+        <button class="ref-panel-close" onclick="app.toggleRefPanel()">
+            <i class="fas fa-xmark"></i>
+        </button>
+    </div>
+    <div class="ref-search-wrap">
+        <i class="fas fa-search ref-search-icon"></i>
+        <input type="text" id="ref-search" class="ref-search" placeholder="搜索问题、关键词..." oninput="app.filterRef()">
+    </div>
+    <div class="ref-body" id="ref-body">
+        <!-- 由 JS 动态填充：所有分类所有题目 -->
+    </div>
+</aside>
+<button class="ref-fab" id="ref-fab" onclick="app.toggleRefPanel()">
+    <i class="fas fa-bolt"></i>
+</button>
+<div class="ref-backdrop" id="ref-backdrop" onclick="app.toggleRefPanel()"></div>
+
+<!-- ===== 统计页 ===== -->
+<div id="page-stats" class="page">
+    <div class="container">
+        <div class="stats-header">
+            <button class="neu-btn btn-back" onclick="app.goHome()">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2><i class="fas fa-chart-pie"></i> 练习统计</h2>
+        </div>
+
+        <div class="stats-overview" id="stats-overview">
+            <!-- 由 JS 填充 -->
+        </div>
+
+        <div class="stats-detail" id="stats-detail">
+            <!-- 由 JS 填充 -->
+        </div>
+    </div>
+</div>
+
+<!-- ===== 确认弹窗 ===== -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <h3 id="modal-title">确认清除所有进度？</h3>
+        <p id="modal-message">此操作不可撤销，所有练习记录将被清除。</p>
+        <div class="modal-actions">
+            <button class="neu-btn" onclick="app.closeModal()">取消</button>
+            <button class="neu-btn btn-danger" id="modal-confirm" onclick="app.clearProgress()">确认清除</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 练习完成弹窗 ===== -->
+<div class="modal-overlay" id="complete-overlay">
+    <div class="modal-card">
+        <div class="modal-icon complete-icon"><i class="fas fa-trophy"></i></div>
+        <h3>本轮练习完成！</h3>
+        <div id="complete-summary"></div>
+        <div class="modal-actions">
+            <button class="neu-btn" onclick="app.goHome()">返回首页</button>
+            <button class="neu-btn btn-primary" onclick="app.restartCategory()">再练一轮</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.1/mermaid.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

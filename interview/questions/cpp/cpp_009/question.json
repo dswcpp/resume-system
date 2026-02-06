@@ -1,0 +1,9 @@
+﻿{
+  "id": "cpp_009",
+  "question": "什么情况下迭代器会失效？如何避免？",
+  "tags": ["STL", "迭代器", "陷阱"],
+  "difficulty": 2,
+  "hint": "按容器类型分别说明失效规则",
+  "answer": "迭代器失效规则因容器不同：vector/deque的insert和erase会使插入/删除点之后所有迭代器失效，push_back若触发扩容则全部失效。list只有被删除元素的迭代器失效，插入不影响。map/set删除只影响被删元素，插入不影响。unordered系列在rehash时全部失效。避免方法：使用erase返回值获取下一个有效迭代器；提前reserve避免vector扩容；遍历中删除用erase-remove惯用法或反向遍历。",
+  "source": "STL面试回答模板.md"
+}
