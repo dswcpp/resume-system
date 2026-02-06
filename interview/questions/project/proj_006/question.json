@@ -1,9 +1,13 @@
 {
   "id": "proj_006",
   "question": "如果让你从零设计一个数据采集软件，怎么设计架构？",
-  "tags": ["架构设计", "数据采集", "系统设计"],
+  "tags": [
+    "架构设计",
+    "数据采集",
+    "系统设计"
+  ],
   "difficulty": 3,
   "hint": "分层架构:设备层→协议层→数据处理层→业务层→UI层",
-  "answer": "先澄清需求(数据源/数据量/实时性/存储/平台)。采用五层架构：(1)硬件层——传感器、采集卡；(2)驱动层——IDevice抽象接口(open/close/configure)，IAcquisitionDevice扩展采集接口，DeviceFactory工厂创建具体设备；(3)服务层——AcquisitionManager统一管理，DataDistributor发布-订阅分发；(4)业务层——ProcessingPipeline流水线串联IProcessor处理器，StorageManager异步写入；(5)应用层——UI显示、报警、报表。线程模型：每设备独立采集线程，处理线程池，存储线程，UI主线程，SPSC队列连接。关键点：无锁队列保性能、环形缓冲控内存、时间戳对齐保同步、错误自动恢复。扩展性：新设备实现接口即可，处理器即插即用，配置文件驱动无需改代码。",
+  "answer": "先澄清需求(数据源/数据量/实时性/存储/平台)。采用五层架构：(1)硬件层——传感器、采集卡；(2)驱动层——IDevice抽象接口(open/close/configure)，IAcquisitionDevice扩展采集接口，DeviceFactory工厂创建具体设备；(3)服务层——AcquisitionManager统一管理，DataDistributor发布-订阅分发；(4)业务层——ProcessingPipeline流水线串联IProcessor处理器，StorageManager异步写入；(5)应用层——UI显示、报警、报表。线程模型：每设备独立采集线程，处理**线程池**，存储线程，UI主线程，**SPSC**队列连接。**关键点**：无锁队列保性能、环形缓冲控内存、时间戳对齐保同步、错误自动恢复。扩展性：新设备实现接口即可，处理器即插即用，配置文件驱动无需改代码。",
   "source": "深度问题_数据采集软件设计.md"
 }

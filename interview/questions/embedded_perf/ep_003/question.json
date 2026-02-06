@@ -1,0 +1,14 @@
+{
+  "id": "ep_003",
+  "question": "怎么定位C++程序的性能瓶颈？用过哪些profiling工具？",
+  "tags": [
+    "性能优化",
+    "profiling",
+    "瓶颈定位",
+    "工具"
+  ],
+  "difficulty": 2,
+  "hint": "分CPU瓶颈、内存瓶颈、I/O瓶颈分别说",
+  "answer": "**定位流程：**\n1. **先量化**：明确优化目标（如UI延迟**200ms**需降至**50ms**），用计时器/日志记录各阶段耗时\n2. **粗定位**：日志分析找到耗时最长的模块/函数\n3. **细定位**：使用profiling工具找到具体热点\n\n**常用工具：**\n- **perf**（Linux）：系统级性能分析，CPU**火焰图**\n- **Valgrind/callgrind**：函数级调用分析（但会大幅降低运行速度）\n- **gprof**：GCC内置profiler\n- **Qt Creator Profiler**：QML/Qt应用的性能分析\n- **自定义日志计时**：在关键路径插入高精度计时（chrono::high_resolution_clock）\n\n**T95项目实例：**\n通过日志计时发现UI线程处理数据耗时过长（**200ms**），进一步分析发现瓶颈在于：\n1. 数据拷贝次数过多 → 改用**移动语义**\n2. UI每收到数据就刷新 → 改为控频**30fps**\n3. 锁竞争严重 → 改为SPSC**无锁队列**\n优化后延迟降至**50ms**。",
+  "source": "简历：性能瓶颈定位、profiling、UI延迟200ms→50ms"
+}

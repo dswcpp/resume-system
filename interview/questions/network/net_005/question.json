@@ -1,9 +1,13 @@
 {
   "id": "net_005",
   "question": "HTTP协议的基本结构？项目中如何应用？",
-  "tags": ["HTTP", "RESTful", "API"],
+  "tags": [
+    "HTTP",
+    "RESTful",
+    "API"
+  ],
   "difficulty": 1,
   "hint": "请求(方法/URL/头/体)+响应(状态码/头/体)",
-  "answer": "HTTP是应用层协议，基于请求-响应模型。请求由请求行(方法 URL 版本)、请求头(Host/Content-Type等)、空行、请求体组成。响应由状态行(版本 状态码 原因)、响应头(Content-Length等)、空行、响应体组成。常用方法：GET获取资源、POST创建、PUT更新、DELETE删除。状态码：2xx成功、3xx重定向、4xx客户端错误、5xx服务端错误。RESTful设计原则：资源用名词URL表示，操作用HTTP方法区分，状态码语义化。我在思行达项目中设计了嵌入式HTTP服务器，实现RESTful API，用路径+方法二维路由分发请求到对应处理函数，如GET /api/devices获取设备列表，POST /api/devices/{id}/control下发控制指令。",
+  "answer": "HTTP是应用层协议，基于请求-响应模型。请求由请求行(方法 URL 版本)、请求头(Host/Content-Type等)、空行、请求体组成。响应由状态行(版本 状态码 原因)、响应头(Content-Length等)、空行、响应体组成。常用方法：GET获取资源、POST创建、PUT更新、DELETE删除。状态码：2xx成功、3xx重定向、4xx客户端错误、5xx服务端错误。**RESTful**设计原则：资源用名词URL表示，操作用HTTP方法区分，状态码语义化。我在思行达项目中设计了嵌入式HTTP服务器，实现RESTful API，用路径+方法二维路由分发请求到对应处理函数，如GET /api/devices获取设备列表，POST /api/devices/{id}/control下发控制指令。",
   "source": "网络通信面试回答模板.md"
 }

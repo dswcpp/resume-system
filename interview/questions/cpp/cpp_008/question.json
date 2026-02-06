@@ -1,9 +1,14 @@
-﻿{
+{
   "id": "cpp_008",
   "question": "map和unordered_map有什么区别？",
-  "tags": ["STL", "map", "哈希表", "红黑树"],
+  "tags": [
+    "STL",
+    "map",
+    "哈希表",
+    "红黑树"
+  ],
   "difficulty": 1,
   "hint": "底层结构不同导致有序性、时间复杂度差异",
-  "answer": "map底层是红黑树，元素按键自动排序，查找插入删除都是O(logN)，迭代器按序遍历。unordered_map底层是哈希表(桶+链表)，元素无序，平均查找插入删除O(1)，最坏O(N)。选型：纯查找性能优先选unordered_map；需要有序遍历、范围查询选map。map每节点含颜色位和三个指针开销稍大，unordered_map负载因子高时需要rehash。",
+  "answer": "map底层是**红黑树**，元素按键自动排序，查找插入删除都是O(logN)，迭代器按序遍历。unordered_map底层是**哈希表**(桶+链表)，元素无序，平均查找插入删除O(1)，最坏O(N)。选型：纯查找性能优先选unordered_map；需要有序遍历、范围查询选map。map每节点含颜色位和三个指针开销稍大，unordered_map负载因子高时需要rehash。",
   "source": "STL面试回答模板.md"
 }

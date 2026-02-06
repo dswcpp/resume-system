@@ -8,6 +8,6 @@
   ],
   "difficulty": 2,
   "hint": "五种连接类型：Auto/Direct/Queued/BlockingQueued/Unique",
-  "answer": "Qt信号槽有五种连接类型：(1)AutoConnection(默认)：发送者和接收者同线程走Direct，跨线程走Queued。(2)DirectConnection：直接在发送者线程中同步调用槽函数。(3)QueuedConnection：将调用封装为事件投递到接收者线程的事件队列。参数类型需要qRegisterMetaType注册。(4)BlockingQueuedConnection：跨线程投递后发送者线程阻塞等待槽函数执行完毕，注意不能在同线程使用否则死锁。(5)UniqueConnection：可与以上类型组合，确保同一信号槽对不重复连接。",
+  "answer": "Qt**信号槽**有五种连接类型：(1)**AutoConnection**(默认)：发送者和接收者同线程走Direct，跨线程走Queued。(2)**DirectConnection**：直接在发送者线程中同步调用槽函数。(3)**QueuedConnection**：将调用封装为事件投递到接收者线程的事件队列。参数类型需要qRegisterMetaType注册。(4)BlockingQueuedConnection：跨线程投递后发送者线程阻塞等待槽函数执行完毕，注意不能在同线程使用否则**死锁**。(5)UniqueConnection：可与以上类型组合，确保同一信号槽对不重复连接。",
   "source": "Qt信号槽深度解析.md"
 }

@@ -1,0 +1,14 @@
+{
+  "id": "ep_001",
+  "question": "RAII在嵌入式开发中怎么用？举例说明资源管理的实际场景",
+  "tags": [
+    "RAII",
+    "资源管理",
+    "嵌入式",
+    "智能指针"
+  ],
+  "difficulty": 2,
+  "hint": "想想串口、文件句柄、互斥锁这些资源的生命周期管理",
+  "answer": "**RAII**（Resource Acquisition Is Initialization）**核心思想**是将资源的获取和释放绑定到对象的构造和析构。\n\n**嵌入式常见场景：**\n1. **串口/设备句柄管理**：构造时打开设备，析构时关闭，避免忘记关闭导致资源泄漏\n2. **互斥锁管理**：std::lock_guard/**unique_lock**，确保异常时也能释放锁\n3. **内存管理**：智能指针管理动态分配的缓冲区\n4. **文件操作**：RAII封装文件描述符，作用域结束自动关闭\n\n**实际代码示例：**\n```cpp\nclass SerialPort {\n    int fd_;\npublic:\n    SerialPort(const char* dev) : fd_(open(dev, O_RDWR)) {\n        if (fd_ < 0) throw std::runtime_error(\"open failed\");\n    }\n    ~SerialPort() { if (fd_ >= 0) close(fd_); }\n    // 禁止拷贝，允许移动\n    SerialPort(const SerialPort&) = delete;\n    SerialPort(SerialPort&& o) noexcept : fd_(o.fd_) { o.fd_ = -1; }\n};\n```\n\n**好处：** 不管函数正常返回还是抛异常，资源都会被正确释放，不需要手动管理。",
+  "source": "简历：RAII资源管理、嵌入式上位机开发"
+}

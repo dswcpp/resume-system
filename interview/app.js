@@ -3,7 +3,7 @@
  * 纯前端，localStorage 存储进度
  */
 
-const CATEGORY_DIRS = ['cpp', 'qt', 'network', 'design_pattern', 'project', 'behavior'];
+// 不再需要硬编码分类列表，由 index.json 驱动
 
 const STORAGE_KEY = 'interview_progress';
 
@@ -46,8 +46,22 @@ class InterviewApp {
         // 配置 marked：识别 mermaid 代码块
         const defaultRenderer = new marked.Renderer();
         const self = this;
-        defaultRenderer.code = function({ text, lang }) {
-            if (lang === 'mermaid') {
+        // 兼容 marked v12 的多种参数格式
+        defaultRenderer.code = function(tokenOrText, maybeLang) {
+            let text, lang;
+            if (typeof tokenOrText === 'object' && tokenOrText !== null) {
+                text = tokenOrText.text || tokenOrText.code || '';
+                lang = tokenOrText.lang || tokenOrText.language || '';
+            } else {
+                text = tokenOrText || '';
+                lang = maybeLang || '';
+            }
+
+            // 检测 mermaid：通过 lang 标记或内容自动识别
+            const mermaidKeywords = /^(classDiagram|sequenceDiagram|flowchart|graph\s|pie|gantt|erDiagram|stateDiagram)/;
+            const isMermaid = lang === 'mermaid' || (!lang && mermaidKeywords.test(text.trim()));
+
+            if (isMermaid) {
                 const id = 'mermaid-' + (self._mermaidId++);
                 return '<div class="mermaid-placeholder" data-id="' + id + '" data-graph="' +
                     text.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
@@ -72,38 +86,45 @@ class InterviewApp {
             return;
         }
 
-        const catPromises = CATEGORY_DIRS.map(async (dir) => {
-            try {
-                // 1. 加载 _meta.json 获取分类元数据和题目列表
-                const metaResp = await fetch(`questions/${dir}/_meta.json`);
-                if (!metaResp.ok) throw new Error(metaResp.statusText);
-                const meta = await metaResp.json();
+        try {
+            // 从 index.json 一次性加载所有分类和题目索引
+            const resp = await fetch('questions/index.json');
+            if (!resp.ok) throw new Error(resp.statusText);
+            const index = await resp.json();
 
-                // 2. 并行加载所有 question.json
-                const qPromises = meta.questions.map(async (qid) => {
-                    try {
-                        const qResp = await fetch(`questions/${dir}/${qid}/question.json`);
-                        if (!qResp.ok) throw new Error(qResp.statusText);
-                        return await qResp.json();
-                    } catch (e) {
-                        console.warn(`加载失败: ${dir}/${qid}/question.json`, e);
-                        return null;
-                    }
-                });
-                const questions = (await Promise.all(qPromises)).filter(Boolean);
+            this.categories = index.categories.map(cat => ({
+                category: cat.name,
+                icon: cat.icon,
+                questions: cat.questions, // 仅含 id/question/tags/difficulty，不含 answer
+                _key: cat.key
+            }));
+        } catch (e) {
+            console.error('加载题库索引失败:', e);
+            this.categories = [];
+        }
+    }
 
-                return {
-                    category: meta.category,
-                    icon: meta.icon,
-                    questions: questions,
-                    _key: dir
-                };
-            } catch (e) {
-                console.warn('加载分类失败:', dir, e);
-                return null;
+    /** 按需加载单题的完整数据（answer 字段） */
+    async loadQuestionAnswer(qid, catKey) {
+        try {
+            const resp = await fetch(`questions/${catKey}/${qid}/question.json`);
+            if (!resp.ok) throw new Error(resp.statusText);
+            const full = await resp.json();
+            // 将 answer 合并到已有题目对象中
+            const cat = this.categories.find(c => c._key === catKey);
+            if (cat) {
+                const q = cat.questions.find(q => q.id === qid);
+                if (q) {
+                    q.answer = full.answer;
+                    q.hint = full.hint;
+                    q.source = full.source;
+                }
             }
-        });
-        this.categories = (await Promise.all(catPromises)).filter(Boolean);
+            return full.answer;
+        } catch (e) {
+            console.warn('加载答案失败:', catKey, qid, e);
+            return null;
+        }
     }
 
     showFileProtocolWarning() {
@@ -292,11 +313,11 @@ class InterviewApp {
         // 题目
         document.getElementById('question-text').textContent = q.question;
 
-        // 提示
+        // 提示（可能尚未加载）
         const hintBox = document.getElementById('hint-box');
         hintBox.style.display = 'none';
-        hintBox.textContent = q.hint || '';
-        document.getElementById('btn-hint').style.display = q.hint ? '' : 'none';
+        hintBox.textContent = q.hint || '点击查看答案后加载提示';
+        document.getElementById('btn-hint').style.display = '';
 
         // 隐藏答案
         document.getElementById('card-back').style.display = 'none';
@@ -413,7 +434,7 @@ class InterviewApp {
                 const item = document.createElement('div');
                 item.className = 'ref-item';
                 item.dataset.qid = q.id;
-                item.dataset.searchText = (q.question + ' ' + q.tags.join(' ') + ' ' + q.answer).toLowerCase();
+                item.dataset.searchText = (q.question + ' ' + q.tags.join(' ') + ' ' + (q.answer || '')).toLowerCase();
 
                 item.innerHTML = `
                     <div class="ref-item-header" onclick="app.jumpFromRef('${q.id}', '${cat._key}')">
@@ -520,16 +541,33 @@ class InterviewApp {
         hintBox.style.display = hintBox.style.display === 'none' ? 'block' : 'none';
     }
 
-    revealAnswer() {
+    async revealAnswer() {
         if (this.currentQuestions.length === 0) return;
         const q = this.currentQuestions[this.currentIndex];
         const answerEl = document.getElementById('answer-content');
 
-        // 用 marked 渲染 markdown（代码高亮已在 renderer 中处理）
-        answerEl.innerHTML = marked.parse(q.answer);
+        // 按需加载答案（如果还没加载过）
+        if (!q.answer) {
+            answerEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)"><i class="fas fa-spinner fa-spin"></i> 加载答案...</div>';
+            document.getElementById('card-back').style.display = 'block';
+            await this.loadQuestionAnswer(q.id, this.currentCategory);
+        }
 
-        // 渲染 Mermaid 图表
-        this.renderMermaidBlocks(answerEl);
+        if (q.answer) {
+            // 用 marked 渲染 markdown（代码高亮已在 renderer 中处理）
+            answerEl.innerHTML = marked.parse(q.answer);
+            // 渲染 Mermaid 图表
+            this.renderMermaidBlocks(answerEl);
+        } else {
+            answerEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">暂无答案内容</div>';
+        }
+
+        // 更新提示（可能也是懒加载的）
+        if (q.hint) {
+            const hintBox = document.getElementById('hint-box');
+            hintBox.textContent = q.hint;
+            document.getElementById('btn-hint').style.display = '';
+        }
 
         document.getElementById('card-back').style.display = 'block';
         this.answerRevealed = true;
@@ -538,23 +576,43 @@ class InterviewApp {
     }
 
     async renderMermaidBlocks(container) {
+        // 第一步：处理 marked renderer 创建的 placeholder（如果有）
         const placeholders = container.querySelectorAll('.mermaid-placeholder');
         for (const el of placeholders) {
-            const graphDef = el.dataset.graph
-                .replace(/&quot;/g, '"')
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>');
-            const id = el.dataset.id;
-            try {
-                const { svg } = await mermaid.render(id, graphDef);
-                el.innerHTML = svg;
-                el.classList.add('mermaid-rendered');
-            } catch (e) {
-                // 渲染失败时显示原始代码
-                el.innerHTML = '<pre class="mermaid-error"><code>' +
-                    graphDef.replace(/</g, '&lt;') + '</code></pre>';
-                console.warn('Mermaid渲染失败:', e);
+            await this._renderOneMermaid(el, el.dataset.graph
+                .replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
+        }
+
+        // 第二步：后扫描——捕获 marked renderer 没识别的 mermaid 代码块
+        // 当 marked 没有调用自定义 code()，mermaid 内容会变成普通 <pre><code> 块
+        const mermaidRe = /^(classDiagram|sequenceDiagram|flowchart|graph\s|pie|gantt|erDiagram|stateDiagram|gitGraph)/;
+        const codeEls = container.querySelectorAll('pre code');
+        for (const code of codeEls) {
+            const text = code.textContent.trim();
+            if (mermaidRe.test(text)) {
+                const wrapper = code.closest('pre');
+                const placeholder = document.createElement('div');
+                placeholder.className = 'mermaid-placeholder';
+                wrapper.replaceWith(placeholder);
+                await this._renderOneMermaid(placeholder, text);
             }
+        }
+    }
+
+    async _renderOneMermaid(el, graphDef) {
+        const id = 'mermaid-' + (this._mermaidId++);
+        try {
+            const { svg } = await mermaid.render(id, graphDef);
+            el.innerHTML = svg;
+            el.classList.add('mermaid-rendered');
+        } catch (e) {
+            el.innerHTML =
+                '<div class="mermaid-error-wrap">' +
+                '<div class="mermaid-error-hint"><i class="fas fa-exclamation-triangle"></i> 图表渲染失败，显示原始定义</div>' +
+                '<pre class="mermaid-error"><code>' +
+                graphDef.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+                '</code></pre></div>';
+            console.warn('Mermaid渲染失败:', id, e.message || e);
         }
     }
 
@@ -769,6 +827,91 @@ class InterviewApp {
         a.download = `interview_progress_${new Date().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
+    }
+
+    /* ---------- 简历导出（基于页面渲染内容） ---------- */
+
+    exportResumePDF() {
+        window.print();
+    }
+
+    exportResumeDOCX() {
+        const content = document.getElementById('resume-content');
+        if (!content || !content.innerHTML.trim()) {
+            alert('请先加载简历内容');
+            return;
+        }
+        // 将页面渲染的 HTML 包装为 Word 可识别的格式
+        const styles = `
+            body { font-family: '微软雅黑', 'Microsoft YaHei', sans-serif; font-size: 10.5pt; color: #333; line-height: 1.8; }
+            h1 { font-size: 18pt; font-weight: bold; color: #1a5276; text-align: center; margin-bottom: 4pt; }
+            h2 { font-size: 13pt; font-weight: bold; color: #1a5276; border-left: 4px solid #2980b9; padding-left: 8px; margin-top: 16pt; margin-bottom: 8pt; }
+            h3 { font-size: 11pt; font-weight: bold; color: #1e293b; margin-top: 12pt; margin-bottom: 4pt; border-bottom: 1px dashed #ccc; padding-bottom: 2pt; }
+            p { margin: 4pt 0; }
+            li { margin-bottom: 2pt; }
+            strong { color: #1e293b; }
+            a { color: #2563eb; }
+            hr { border: none; border-top: 1px solid #e2e8f0; margin: 12pt 0; }
+        `;
+        const html = [
+            '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">',
+            '<head><meta charset="utf-8">',
+            '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->',
+            '<style>' + styles + '</style></head>',
+            '<body>' + content.innerHTML + '</body></html>'
+        ].join('');
+        const blob = new Blob(['\ufeff' + html], { type: 'application/msword' });
+        this._downloadBlob(blob, '段胜炜_C++开发工程师_简历.doc');
+    }
+
+    exportResumeMD() {
+        // 从页面内容反向提取不如直接用源文件，源文件就是页面渲染的数据源
+        const content = document.getElementById('resume-content');
+        if (!content || !content.innerHTML.trim()) {
+            alert('请先加载简历内容');
+            return;
+        }
+        // 用已缓存的 md 源文本（showResume 时 fetch 过）
+        fetch('resume.md')
+            .then(r => r.text())
+            .then(text => {
+                const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+                this._downloadBlob(blob, '段胜炜_C++开发工程师_简历.md');
+            })
+            .catch(e => console.error('导出MD失败:', e));
+    }
+
+    _downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    /* ---------- 简历查看 ---------- */
+    async showResume() {
+        this.showPage('page-resume');
+        const container = document.getElementById('resume-content');
+
+        // 已加载过则不重复请求
+        if (container.dataset.loaded === 'true') return;
+
+        container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-secondary)"><i class="fas fa-spinner fa-spin"></i> 加载简历...</div>';
+
+        try {
+            const resp = await fetch('resume.md');
+            if (!resp.ok) throw new Error(resp.statusText);
+            const md = await resp.text();
+            container.innerHTML = marked.parse(md);
+            container.dataset.loaded = 'true';
+        } catch (e) {
+            container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--failed)"><i class="fas fa-exclamation-circle"></i> 加载简历失败</div>';
+            console.error('加载简历失败:', e);
+        }
     }
 }
 

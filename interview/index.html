@@ -24,6 +24,9 @@
             </div>
 
             <div class="home-actions">
+                <button class="neu-btn btn-resume" onclick="app.showResume()">
+                    <i class="fas fa-file-alt"></i> 查看简历
+                </button>
                 <button class="neu-btn" onclick="app.showStats()">
                     <i class="fas fa-chart-pie"></i> 练习统计
                 </button>
@@ -165,6 +168,32 @@
     <i class="fas fa-bolt"></i>
 </button>
 <div class="ref-backdrop" id="ref-backdrop" onclick="app.toggleRefPanel()"></div>
+
+<!-- ===== 简历页 ===== -->
+<div id="page-resume" class="page">
+    <div class="container resume-container">
+        <div class="resume-header">
+            <button class="neu-btn btn-back" onclick="app.goHome()">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2><i class="fas fa-file-alt"></i> 我的简历</h2>
+            <div class="resume-export-group">
+                <button class="neu-btn btn-export" onclick="app.exportResumePDF()">
+                    <i class="fas fa-file-pdf"></i> PDF
+                </button>
+                <button class="neu-btn btn-export" onclick="app.exportResumeDOCX()">
+                    <i class="fas fa-file-word"></i> DOCX
+                </button>
+                <button class="neu-btn btn-export" onclick="app.exportResumeMD()">
+                    <i class="fas fa-file-code"></i> Markdown
+                </button>
+            </div>
+        </div>
+        <div class="resume-body" id="resume-content">
+            <!-- 由 JS 加载 resume.md 渲染 -->
+        </div>
+    </div>
+</div>
 
 <!-- ===== 统计页 ===== -->
 <div id="page-stats" class="page">

@@ -8,6 +8,6 @@
   ],
   "difficulty": 2,
   "hint": "Model提供数据、View展示、Delegate渲染编辑",
-  "answer": "Qt Model/View是MVC的变体，将数据(Model)和展示(View)分离，用Delegate处理渲染和编辑。实现自定义Model需继承QAbstractTableModel/QAbstractItemModel，必须实现rowCount()、columnCount()、data()三个纯虚函数。关键是数据变化时要正确发出dataChanged/beginInsertRows等信号通知View刷新。性能优化：批量更新时累积变更后一次性发dataChanged覆盖变化范围。",
+  "answer": "Qt **Model/View**是MVC的变体，将数据(Model)和展示(View)分离，用Delegate处理渲染和编辑。实现自定义Model需继承QAbstractTableModel/**QAbstractItemModel**，必须实现rowCount()、columnCount()、data()三个纯虚函数。关键是数据变化时要正确发出dataChanged/beginInsertRows等信号通知View刷新。性能优化：批量更新时累积变更后一次性发dataChanged覆盖变化范围。",
   "source": "Qt面试准备.md"
 }

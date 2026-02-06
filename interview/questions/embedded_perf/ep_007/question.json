@@ -1,0 +1,14 @@
+{
+  "id": "ep_007",
+  "question": "跨平台抽象层怎么设计？你的项目里怎么隔离平台差异？",
+  "tags": [
+    "跨平台",
+    "抽象层",
+    "Qt",
+    "可移植"
+  ],
+  "difficulty": 2,
+  "hint": "想想哪些东西是平台相关的：文件路径、串口名、系统API",
+  "answer": "**平台差异点：**\n- 文件路径分隔符（/ vs \\）\n- 串口设备名（/dev/ttyUSB0 vs COM3）\n- 系统API（**epoll** vs IOCP）\n- 字节序（大端/小端）\n\n**抽象策略：**\n1. **接口抽象**：定义纯虚基类，各平台实现子类\n2. **条件编译**：#ifdef _WIN32 / #ifdef __linux__\n3. **Qt抽象层**：QSerialPort、QFile等已屏蔽平台差异\n4. **组件库封装**：将串口、USB、文件系统等封装为可移植组件\n\n**T95项目实践：**\n```cpp\n// 抽象接口\nclass ISerialPort {\npublic:\n    virtual bool open(const QString& port) = 0;\n    virtual QByteArray read() = 0;\n    virtual void write(const QByteArray& data) = 0;\n    virtual ~ISerialPort() = default;\n};\n// Qt实现（跨平台）\nclass QtSerialPort : public ISerialPort { /* QSerialPort封装 */ };\n```\n\n基于Qt抽象层，T95实现了Linux和Windows双平台部署，业务代码无需任何修改。",
+  "source": "简历：Qt抽象层、可移植组件库、Linux/Windows双平台"
+}

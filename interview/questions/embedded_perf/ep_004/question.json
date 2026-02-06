@@ -1,0 +1,14 @@
+{
+  "id": "ep_004",
+  "question": "环形缓冲区怎么设计？在你的项目里怎么用的？",
+  "tags": [
+    "环形缓冲区",
+    "数据结构",
+    "实时采集",
+    "波形数据"
+  ],
+  "difficulty": 2,
+  "hint": "想想读写指针、满/空判断、覆盖策略",
+  "answer": "**设计要点：**\n1. **底层存储**：固定大小数组 + head/tail两个索引\n2. **写入**：data[tail % capacity] = item; tail++\n3. **读取**：item = data[head % capacity]; head++\n4. **空判断**：head == tail\n5. **满判断**：tail - head == capacity\n\n**覆盖策略：**\n- **阻塞等待**：满时写线程等待（适合不能丢数据的场景）\n- **覆盖最旧**：满时覆盖head数据（适合实时显示，丢旧数据可接受）\n\n**T95项目应用：**\nTEV检测模块使用环形缓冲区管理波形数据：\n- 采样率**1MHz**，每秒100万个采样点\n- 缓冲区大小设为2的幂（便于位运算取模）\n- 采集线程写入，处理线程读取\n- 采用**SPSC**无锁环形队列，避免锁开销\n\n```cpp\ntemplate<typename T, size_t N>\nclass RingBuffer {\n    static_assert((N & (N-1)) == 0); // N必须是2的幂\n    T data_[N];\n    std::atomic<size_t> head_{0}, tail_{0};\npublic:\n    bool push(const T& v) {\n        auto t = tail_.load(relaxed);\n        if (t - head_.load(acquire) == N) return false;\n        data_[t & (N-1)] = v;\n        tail_.store(t+1, release);\n        return true;\n    }\n};\n```",
+  "source": "简历：环形缓冲区管理波形数据、TEV检测模块"
+}

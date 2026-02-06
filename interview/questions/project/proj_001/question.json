@@ -1,9 +1,13 @@
 {
   "id": "proj_001",
   "question": "你的SPSC无锁队列是怎么设计的？为什么不用mutex？",
-  "tags": ["无锁队列", "SPSC", "性能优化"],
+  "tags": [
+    "无锁队列",
+    "SPSC",
+    "性能优化"
+  ],
   "difficulty": 3,
   "hint": "环形缓冲+atomic索引+memory_order;单生产单消费无竞争",
-  "answer": "T95采集线程1000Hz产生数据，UI线程30Hz消费。初始用QMutex同步，锁竞争占CPU 20%以上，UI延迟200ms。改用SPSC无锁队列：环形缓冲区+两个atomic索引(head/tail)，生产者只写head，消费者只写tail，通过memory_order_release/acquire保证可见性。配合alignas(64)避免false sharing，容量取2的幂用位运算替代取模。同时加入控频刷新(30Hz定时器拉取最新帧)和shared_ptr零拷贝。优化后延迟降至50ms，CPU降40%。选SPSC而非mutex是因为场景恰好单生产单消费，无锁实现最简单且性能最好，实测吞吐量比mutex高20倍。",
+  "answer": "T95采集线程1000Hz产生数据，UI线程30Hz消费。初始用QMutex同步，锁竞争占CPU **20%**以上，UI延迟**200ms**。改用SPSC无锁队列：**环形缓冲区**+两个**atomic**索引(head/tail)，生产者只写head，消费者只写tail，通过**memory_order_release**/acquire保证可见性。配合alignas(64)避免**false sharing**，容量取2的幂用位运算替代取模。同时加入**控频刷新**(30Hz定时器拉取最新帧)和shared_ptr**零拷贝**。优化后延迟降至**50ms**，CPU降**40%**。选SPSC而非mutex是因为场景恰好单生产单消费，无锁实现最简单且性能最好，实测吞吐量比**mutex**高20倍。",
   "source": "深度问题_无锁队列.md"
 }

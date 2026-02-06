@@ -8,6 +8,6 @@
   ],
   "difficulty": 1,
   "hint": "从moc预处理→元信息表→connect注册→事件循环分发的流程讲",
-  "answer": "Qt信号槽机制依赖元对象系统(Meta-Object System)。编译前moc预处理器扫描Q_OBJECT宏，为每个类生成moc_*.cpp文件，包含信号的实现函数和元信息表(信号槽名称、参数类型的字符串描述)。调用connect()时，Qt在发送者的Connection列表中注册一条记录(接收者指针+槽函数索引)。当emit信号时，实际调用moc生成的函数，遍历Connection列表，根据连接类型(Direct/Queued)决定直接调用槽函数还是将事件投递到接收者线程的事件队列。跨线程时通过QMetaCallEvent封装调用，由接收者线程的事件循环分发执行。",
+  "answer": "Qt**信号槽**机制依赖元对象系统(Meta-Object System)。编译前**moc**预处理器扫描Q_OBJECT宏，为每个类生成moc_*.cpp文件，包含信号的实现函数和元信息表(信号槽名称、参数类型的字符串描述)。调用connect()时，Qt在发送者的Connection列表中注册一条记录(接收者指针+槽函数索引)。当emit信号时，实际调用moc生成的函数，遍历Connection列表，根据连接类型(Direct/Queued)决定直接调用槽函数还是将事件投递到接收者线程的事件队列。跨线程时通过QMetaCallEvent封装调用，由接收者线程的事件循环分发执行。",
   "source": "Qt面试准备.md"
 }

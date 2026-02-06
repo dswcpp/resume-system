@@ -1,9 +1,13 @@
 {
   "id": "cpp_002",
   "question": "智能指针shared_ptr的实现原理？循环引用怎么解决？",
-  "tags": ["内存管理", "C++11", "智能指针"],
+  "tags": [
+    "内存管理",
+    "C++11",
+    "智能指针"
+  ],
   "difficulty": 2,
   "hint": "从引用计数、控制块、weak_ptr三个角度回答",
-  "answer": "shared_ptr内部持有两个指针：一个指向管理的对象，一个指向控制块。控制块包含强引用计数(shared count)和弱引用计数(weak count)。拷贝shared_ptr时强计数+1，析构时-1，降为0时删除对象。控制块在弱计数也为0时释放。循环引用指两个对象互相持有shared_ptr导致计数永远不为0。解决方案是将其中一方改为weak_ptr，weak_ptr不增加强计数，使用时通过lock()提升为shared_ptr。make_shared一次分配对象和控制块，减少内存碎片和分配开销。",
+  "answer": "**shared_ptr**内部持有两个指针：一个指向管理的对象，一个指向**控制块**。控制块包含强**引用计数**(shared count)和弱引用计数(weak count)。拷贝shared_ptr时强计数+1，析构时-1，降为0时删除对象。控制块在弱计数也为0时释放。**循环引用**指两个对象互相持有shared_ptr导致计数永远不为0。解决方案是将其中一方改为**weak_ptr**，weak_ptr不增加强计数，使用时通过lock()提升为shared_ptr。**make_shared**一次分配对象和控制块，减少内存碎片和分配开销。",
   "source": "C++面试准备.md"
 }

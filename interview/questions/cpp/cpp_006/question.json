@@ -1,9 +1,13 @@
-﻿{
+{
   "id": "cpp_006",
   "question": "STL容器怎么选？vector、list、map、unordered_map各自什么时候用？",
-  "tags": ["STL", "容器选型", "时间复杂度"],
+  "tags": [
+    "STL",
+    "容器选型",
+    "时间复杂度"
+  ],
   "difficulty": 1,
   "hint": "按访问模式选型",
-  "answer": "vector：默认首选，连续内存缓存友好，随机访问O(1)，尾部增删O(1)摊还。list：双向链表，任意位置插删O(1)，但不支持随机访问且缓存不友好。map：红黑树实现，键值有序，查找插入O(logN)。unordered_map：哈希表实现，无序，平均查找插入O(1)。选型原则：默认用vector，需要键值查找用unordered_map，需要有序用map，需要频繁中间插删且持有迭代器用list。",
+  "answer": "vector：默认首选，连续内存缓存友好，随机访问O(1)，尾部增删O(1)摊还。list：双向链表，任意位置插删O(1)，但不支持随机访问且缓存不友好。map：**红黑树**实现，键值有序，查找插入O(logN)。unordered_map：**哈希表**实现，无序，平均查找插入O(1)。选型原则：默认用vector，需要键值查找用unordered_map，需要有序用map，需要频繁中间插删且持有迭代器用list。",
   "source": "STL面试回答模板.md"
 }

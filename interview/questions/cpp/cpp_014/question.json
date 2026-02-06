@@ -1,9 +1,14 @@
-﻿{
+{
   "id": "cpp_014",
   "question": "什么是false sharing？怎么避免？",
-  "tags": ["缓存", "false sharing", "性能优化", "多线程"],
+  "tags": [
+    "缓存",
+    "false sharing",
+    "性能优化",
+    "多线程"
+  ],
   "difficulty": 3,
   "hint": "两个线程的变量在同一缓存行(64B)",
-  "answer": "False sharing指多个线程各自修改不同的变量，但这些变量恰好在同一个CPU缓存行(通常64字节)中。由于缓存一致性协议(MESI)以缓存行为单位同步，一个核心的写入会导致其他核心的同一缓存行失效，引发频繁的缓存行弹跳，严重降低性能。避免方法：alignas(64)或padding让变量独占缓存行；C++17的hardware_destructive_interference_size获取缓存行大小；线程局部存储避免共享；数据结构设计时考虑热变量布局。",
+  "answer": "**False sharing**指多个线程各自修改不同的变量，但这些变量恰好在同一个CPU**缓存行**(通常64字节)中。由于缓存一致性协议(MESI)以缓存行为单位同步，一个核心的写入会导致其他核心的同一缓存行失效，引发频繁的缓存行弹跳，严重降低性能。避免方法：alignas(64)或padding让变量独占缓存行；C++17的hardware_destructive_interference_size获取缓存行大小；线程局部存储避免共享；数据结构设计时考虑热变量布局。",
   "source": "深度问题_无锁队列.md"
 }

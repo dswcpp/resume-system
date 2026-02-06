@@ -1,0 +1,13 @@
+{
+  "id": "dp_006",
+  "question": "适配器模式在设备接入中怎么用？怎么统一不同厂商的设备接口？",
+  "tags": [
+    "适配器模式",
+    "设备接入",
+    "接口统一"
+  ],
+  "difficulty": 2,
+  "hint": "想想营业厅项目中RS485设备和柜外交互终端的外设管理",
+  "answer": "**适配器模式**核心思想**：**\n将一个类的接口转换成客户端期望的另一种接口，使原本不兼容的类可以协作。\n\n**设备接入场景：**\n不同厂商的设备协议不同（如**RS485**的寄存器地址、数据格式各异），但上层业务代码需要统一的操作方式。\n\n**设计方案：**\n```cpp\n// 统一设备接口\nclass IDevice {\npublic:\n    virtual bool connect(const QString& addr) = 0;\n    virtual QByteArray read() = 0;\n    virtual bool write(const QByteArray& cmd) = 0;\n    virtual void disconnect() = 0;\n    virtual ~IDevice() = default;\n};\n\n// 厂商A的RS485设备适配器\nclass VendorAAdapter : public IDevice {\n    VendorADriver driver_; // 厂商提供的SDK\npublic:\n    bool connect(const QString& addr) override {\n        return driver_.openModbus(addr.toInt(), 9600);\n    }\n    QByteArray read() override {\n        auto regs = driver_.readHoldingRegisters(0x00, 10);\n        return convertToBytes(regs); // 转换为统一格式\n    }\n};\n```\n\n**好处：**\n- 新设备接入只需编写一个适配器类，不改动业务代码\n- 营业厅项目中15+种设备通过适配器统一管理，新设备接入周期缩短**50%**",
+  "source": "简历：设备适配器模式、15+种设备即插即用、接入周期缩短50%"
+}

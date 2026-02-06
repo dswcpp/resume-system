@@ -1,0 +1,9 @@
+{
+  "id": "ep_005",
+  "question": "线程池怎么设计？任务调度策略有哪些？",
+  "tags": ["线程池", "任务调度", "多线程", "并发"],
+  "difficulty": 2,
+  "hint": "从组成部分说起：线程数组、任务队列、同步机制",
+  "answer": "**核心组成：**\n1. **线程数组**：固定数量的工作线程\n2. **任务队列**：线程安全的队列存放待执行任务\n3. **同步机制**：条件变量通知空闲线程取任务\n4. **停止标志**：优雅关闭线程池\n\n**基本实现：**\n```cpp\nclass ThreadPool {\n    std::vector<std::thread> workers_;\n    std::queue<std::function<void()>> tasks_;\n    std::mutex mtx_;\n    std::condition_variable cv_;\n    bool stop_ = false;\npublic:\n    ThreadPool(size_t n) {\n        for (size_t i = 0; i < n; ++i)\n            workers_.emplace_back([this]{\n                while (true) {\n                    std::function<void()> task;\n                    {\n                        std::unique_lock lk(mtx_);\n                        cv_.wait(lk, [this]{ return stop_ || !tasks_.empty(); });\n                        if (stop_ && tasks_.empty()) return;\n                        task = std::move(tasks_.front());\n                        tasks_.pop();\n                    }\n                    task();\n                }\n            });\n    }\n};\n```\n\n**调度策略：**\n- FIFO（先进先出）：最常用\n- 优先级队列：紧急任务优先\n- 工作窃取（work stealing）：空闲线程从其他线程队列偷任务",
+  "source": "简历：线程池、多线程同步"
+}

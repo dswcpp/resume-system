@@ -382,7 +382,19 @@ header .subtitle {
 }
 
 .answer-content li { margin-bottom: 4px; }
-.answer-content strong { color: var(--primary); font-weight: 600; }
+
+/* 重点加粗：荧光笔高亮 + 下划线 + 颜色 */
+.answer-content strong {
+    color: #b91c1c;
+    font-weight: 700;
+    background: linear-gradient(to top, #fef08a 45%, transparent 45%);
+    padding: 0 2px;
+    border-radius: 2px;
+    text-decoration: underline;
+    text-decoration-color: #f59e0b;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 1px;
+}
 
 .answer-content code {
     background: var(--bg-page);
@@ -398,6 +410,20 @@ header .subtitle {
     border-radius: 8px;
     overflow-x: auto;
 }
+
+.mermaid-error-wrap {
+    border: 1px dashed var(--fuzzy);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+.mermaid-error-hint {
+    background: #fef3c7;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: #92400e;
+}
+.mermaid-rendered { margin: 12px 0; text-align: center; }
 
 .answer-content pre code {
     display: block;
@@ -1058,4 +1084,192 @@ body.ref-open .practice-header { margin-right: 400px; }
 
 @media (max-width: 520px) {
     .ref-panel { width: 100%; right: -100%; }
+}
+
+/* ===== 简历页 ===== */
+.resume-container { max-width: 860px; }
+
+.resume-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.resume-header h2 {
+    font-size: 1.2rem;
+    color: var(--text);
+    font-weight: 600;
+}
+.resume-export-group {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+.btn-export {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+}
+.btn-export .fa-file-pdf { color: #e53e3e; }
+.btn-export .fa-file-word { color: #2b6cb0; }
+.btn-export .fa-file-code { color: #38a169; }
+
+/* --- 简历卡片主体 --- */
+.resume-body {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 48px 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    line-height: 1.75;
+    font-size: 0.92rem;
+    color: #334155;
+    max-height: none;
+    overflow-y: visible;
+}
+
+/* 姓名标题 */
+.resume-body h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a5276;
+    text-align: center;
+    border: none;
+    border-bottom: none;
+    margin: 0 0 6px;
+    padding: 0;
+    letter-spacing: 2px;
+}
+
+/* 姓名下面的联系信息段落 */
+.resume-body h1 + p {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 4px;
+    line-height: 1.6;
+}
+.resume-body h1 + p + p {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* 分隔线：替代 hr 为精细线 */
+.resume-body hr {
+    border: none;
+    height: 0;
+    margin: 0;
+}
+
+/* 二级标题：蓝色左边框 + 底色 */
+.resume-body h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a5276;
+    border-bottom: none;
+    border-left: 4px solid #2980b9;
+    background: linear-gradient(90deg, #eef4fb 0%, transparent 100%);
+    padding: 8px 14px;
+    margin: 28px 0 14px;
+    border-radius: 0 6px 6px 0;
+    letter-spacing: 1px;
+}
+
+/* 三级标题：公司/项目名 */
+.resume-body h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 22px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+/* 段落 */
+.resume-body p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+/* 加粗标签 */
+.resume-body strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* 列表 */
+.resume-body ul, .resume-body ol {
+    padding-left: 18px;
+    margin: 6px 0 10px;
+}
+.resume-body li {
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+    color: #475569;
+}
+.resume-body li strong {
+    color: #1a5276;
+}
+
+/* 链接 */
+.resume-body a {
+    color: #2563eb;
+    text-decoration: none;
+}
+.resume-body a:hover {
+    text-decoration: underline;
+}
+
+/* 行内代码 */
+.resume-body code {
+    background: #f1f5f9;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    color: #1a5276;
+}
+
+/* 查看简历按钮 */
+.btn-resume {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary) !important;
+}
+.btn-resume:hover {
+    background: var(--primary-light) !important;
+}
+
+@media (max-width: 768px) {
+    .resume-body { padding: 24px 18px; }
+    .resume-body h1 { font-size: 1.3rem; }
+    .resume-body h2 { font-size: 0.95rem; }
+}
+@media print {
+    /* 打印时隐藏所有非简历内容 */
+    body > *:not(#page-resume) { display: none !important; }
+    #page-resume { display: block !important; }
+    .resume-header { display: none !important; }
+    .ref-panel, .ref-fab, .ref-backdrop { display: none !important; }
+    .resume-body {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        font-size: 10pt;
+    }
+    .resume-body h1 { font-size: 16pt; }
+    .resume-body h2 {
+        font-size: 12pt;
+        background: none;
+        border-left: 3px solid #1a5276;
+        padding: 4px 10px;
+        break-after: avoid;
+    }
+    .resume-body h3 { break-after: avoid; }
+    .resume-body ul, .resume-body p { orphans: 2; widows: 2; }
 }

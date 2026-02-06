@@ -1,9 +1,14 @@
-﻿{
+{
   "id": "cpp_013",
   "question": "SPSC无锁队列的原理是什么？为什么比加锁快？",
-  "tags": ["无锁队列", "SPSC", "atomic", "性能优化"],
+  "tags": [
+    "无锁队列",
+    "SPSC",
+    "atomic",
+    "性能优化"
+  ],
   "difficulty": 3,
   "hint": "环形缓冲区+atomic读写索引+memory_order",
-  "answer": "SPSC(单生产者单消费者)无锁队列基于环形缓冲区，生产者和消费者各维护一个原子索引(write_idx和read_idx)。生产者写数据后用release语义更新write_idx，消费者用acquire语义读取write_idx判断是否有新数据。因为只有一个生产者写write_idx一个消费者写read_idx，不存在竞争，不需要CAS操作。比加锁快的原因：无系统调用、无上下文切换、无cache line bouncing(head/tail分开到不同缓存行)、release/acquire比全屏障开销小。",
+  "answer": "**SPSC**(单生产者单消费者)**无锁队列**基于环形缓冲区，生产者和消费者各维护一个原子索引(write_idx和read_idx)。生产者写数据后用release语义更新write_idx，消费者用acquire语义读取write_idx判断是否有新数据。因为只有一个生产者写write_idx一个消费者写read_idx，不存在竞争，不需要**CAS**操作。比加锁快的原因：无系统调用、无上下文切换、无**cache line** bouncing(head/tail分开到不同**缓存行**)、release/acquire比全屏障开销小。",
   "source": "深度问题_无锁队列.md"
 }

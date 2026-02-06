@@ -1,0 +1,140 @@
+{
+  "version": "2026-02-06",
+  "total": 78,
+  "categories": [
+    {
+      "key": "cpp",
+      "name": "C++核心",
+      "icon": "fa-code",
+      "questions": [
+        { "id": "cpp_001", "question": "虚函数的底层原理是什么？虚函数表和虚指针如何工作？", "tags": ["多态", "虚函数表", "OOP"], "difficulty": 2 },
+        { "id": "cpp_002", "question": "智能指针shared_ptr的实现原理？循环引用怎么解决？", "tags": ["内存管理", "C++11", "智能指针"], "difficulty": 2 },
+        { "id": "cpp_003", "question": "什么是完美转发？std::forward的作用是什么？", "tags": ["C++11", "右值引用", "模板"], "difficulty": 3 },
+        { "id": "cpp_004", "question": "C++内存模型和原子操作是什么？memory_order有什么用？", "tags": ["多线程", "原子操作", "内存序", "C++11"], "difficulty": 3 },
+        { "id": "cpp_005", "question": "异常安全有几个级别？如何编写异常安全的代码？", "tags": ["异常安全", "RAII", "代码质量"], "difficulty": 2 },
+        { "id": "cpp_006", "question": "STL容器怎么选？vector、list、map、unordered_map各自什么时候用？", "tags": ["STL", "容器选型", "时间复杂度"], "difficulty": 1 },
+        { "id": "cpp_007", "question": "vector和list有什么区别？什么时候选哪个？", "tags": ["STL", "vector", "list", "缓存局部性"], "difficulty": 1 },
+        { "id": "cpp_008", "question": "map和unordered_map有什么区别？", "tags": ["STL", "map", "哈希表", "红黑树"], "difficulty": 1 },
+        { "id": "cpp_009", "question": "什么情况下迭代器会失效？如何避免？", "tags": ["STL", "迭代器", "陷阱"], "difficulty": 2 },
+        { "id": "cpp_010", "question": "C++11/14/17分别带来了哪些重要特性？", "tags": ["C++11", "C++14", "C++17", "现代C++"], "difficulty": 1 },
+        { "id": "cpp_011", "question": "移动语义是什么？什么时候会触发移动？", "tags": ["C++11", "移动语义", "右值引用", "性能优化"], "difficulty": 2 },
+        { "id": "cpp_012", "question": "多线程编程中如何保证线程安全？", "tags": ["多线程", "mutex", "线程安全", "RAII"], "difficulty": 2 },
+        { "id": "cpp_013", "question": "SPSC无锁队列的原理是什么？为什么比加锁快？", "tags": ["无锁队列", "SPSC", "atomic", "性能优化"], "difficulty": 3 },
+        { "id": "cpp_014", "question": "什么是false sharing？怎么避免？", "tags": ["缓存", "false sharing", "性能优化", "多线程"], "difficulty": 3 },
+        { "id": "cpp_015", "question": "什么是ABA问题？无锁编程中如何应对？", "tags": ["ABA问题", "无锁编程", "CAS", "多线程"], "difficulty": 3 }
+      ]
+    },
+    {
+      "key": "qt",
+      "name": "Qt框架",
+      "icon": "fa-desktop",
+      "questions": [
+        { "id": "qt_001", "question": "Qt信号槽机制的工作原理是什么？", "tags": ["信号槽", "元对象系统", "moc"], "difficulty": 1 },
+        { "id": "qt_002", "question": "信号槽和回调函数有什么区别？", "tags": ["信号槽", "回调函数", "设计对比"], "difficulty": 1 },
+        { "id": "qt_003", "question": "信号槽的连接类型有哪些？分别用在什么场景？", "tags": ["信号槽", "连接类型", "跨线程"], "difficulty": 2 },
+        { "id": "qt_004", "question": "QThread的正确用法是什么？继承vs moveToThread？", "tags": ["QThread", "moveToThread", "Worker模式"], "difficulty": 2 },
+        { "id": "qt_005", "question": "Qt Model/View架构的核心概念？如何实现自定义模型？", "tags": ["Model/View", "MVC", "自定义模型"], "difficulty": 2 },
+        { "id": "qt_006", "question": "Qt GUI实时曲线显示如何做性能优化？", "tags": ["UI性能", "实时曲线", "刷新频率", "降采样"], "difficulty": 3 },
+        { "id": "qt_007", "question": "信号槽新旧写法有什么区别？推荐哪种？", "tags": ["信号槽", "写法对比", "最佳实践"], "difficulty": 1 },
+        { "id": "qt_008", "question": "信号连接的对象被销毁了会怎样？如何防止内存泄漏？", "tags": ["信号槽", "生命周期", "内存安全"], "difficulty": 2 },
+        { "id": "qt_009", "question": "Qt的对象树机制及内存管理方式是什么？", "tags": ["对象树", "内存管理", "QObject"], "difficulty": 1 },
+        { "id": "qt_010", "question": "调试信号槽问题有什么实用技巧？", "tags": ["信号槽", "调试", "QSignalSpy"], "difficulty": 2 }
+      ]
+    },
+    {
+      "key": "network",
+      "name": "网络与通信",
+      "icon": "fa-network-wired",
+      "questions": [
+        { "id": "net_001", "question": "TCP三次握手和四次挥手的过程？为什么这样设计？", "tags": ["TCP", "三次握手", "四次挥手"], "difficulty": 1 },
+        { "id": "net_002", "question": "TCP和UDP有什么区别？怎么选型？", "tags": ["TCP", "UDP", "选型"], "difficulty": 1 },
+        { "id": "net_003", "question": "TCP粘包是什么？怎么处理？", "tags": ["TCP", "粘包", "帧格式", "状态机"], "difficulty": 2 },
+        { "id": "net_004", "question": "select、poll、epoll的区别？", "tags": ["I/O多路复用", "epoll", "高并发"], "difficulty": 2 },
+        { "id": "net_005", "question": "HTTP协议的基本结构？项目中如何应用？", "tags": ["HTTP", "RESTful", "API"], "difficulty": 1 },
+        { "id": "net_006", "question": "MQTT协议的模型、QoS等级和应用场景？", "tags": ["MQTT", "发布订阅", "QoS", "IoT"], "difficulty": 2 },
+        { "id": "net_007", "question": "串口通信的基本参数？USB虚拟串口是什么？", "tags": ["串口", "USB", "设备通信"], "difficulty": 1 },
+        { "id": "net_008", "question": "RS485和RS232有什么区别？RS485总线如何避免冲突？", "tags": ["RS485", "RS232", "工业通信"], "difficulty": 2 },
+        { "id": "net_009", "question": "什么是Modbus协议？RTU和TCP有什么区别？", "tags": ["Modbus", "工业协议", "寄存器"], "difficulty": 1 },
+        { "id": "net_010", "question": "如何设计串口/USB通信协议？丢包和校验怎么处理？", "tags": ["协议设计", "CRC", "重发", "状态机"], "difficulty": 2 }
+      ]
+    },
+    {
+      "key": "design_pattern",
+      "name": "设计模式",
+      "icon": "fa-cubes",
+      "questions": [
+        { "id": "dp_001", "question": "状态机/状态模式是什么？项目里怎么用的？", "tags": ["状态机", "状态模式", "表驱动"], "difficulty": 2 },
+        { "id": "dp_002", "question": "生产者-消费者模式怎么设计？哪里用过？", "tags": ["生产者消费者", "多线程", "无锁队列"], "difficulty": 2 },
+        { "id": "dp_003", "question": "什么是观察者模式？Qt信号槽和它的关系？", "tags": ["观察者模式", "信号槽", "松耦合"], "difficulty": 1 },
+        { "id": "dp_004", "question": "工厂模式做什么？根据类型创建对象怎么实现？", "tags": ["工厂模式", "多态", "设备适配"], "difficulty": 1 },
+        { "id": "dp_005", "question": "什么是单例模式？如何实现线程安全的单例？", "tags": ["单例模式", "线程安全", "C++11"], "difficulty": 2 },
+        { "id": "dp_006", "question": "适配器模式在设备接入中怎么用？怎么统一不同厂商的设备接口？", "tags": ["适配器模式", "设备接入", "接口统一"], "difficulty": 2 },
+        { "id": "dp_007", "question": "事件驱动架构的优缺点？和多线程模型怎么取舍？", "tags": ["事件驱动", "架构对比", "资源受限"], "difficulty": 2 }
+      ]
+    },
+    {
+      "key": "project",
+      "name": "项目深挖",
+      "icon": "fa-project-diagram",
+      "questions": [
+        { "id": "proj_001", "question": "你的SPSC无锁队列是怎么设计的？为什么不用mutex？", "tags": ["无锁队列", "SPSC", "性能优化"], "difficulty": 3 },
+        { "id": "proj_002", "question": "集成周期从3个月缩短到约50天，具体怎么做到的？", "tags": ["模块化", "集成框架", "架构设计"], "difficulty": 2 },
+        { "id": "proj_003", "question": "15MB/s的实时数据流是怎么处理的？", "tags": ["实时数据", "流水线", "性能优化"], "difficulty": 3 },
+        { "id": "proj_004", "question": "通信响应时间从100ms优化到60ms，怎么做的？", "tags": ["通信优化", "性能优化", "协议"], "difficulty": 2 },
+        { "id": "proj_005", "question": "RK3399交叉编译环境是怎么搭建的？遇到什么问题？", "tags": ["交叉编译", "嵌入式", "RK3399"], "difficulty": 2 },
+        { "id": "proj_006", "question": "如果让你从零设计一个数据采集软件，怎么设计架构？", "tags": ["架构设计", "数据采集", "系统设计"], "difficulty": 3 },
+        { "id": "proj_007", "question": "带电检测终端T95项目的整体架构是什么？你负责哪些？", "tags": ["项目概述", "T95", "架构"], "difficulty": 1 },
+        { "id": "proj_008", "question": "你在项目中遇到的最有挑战性的技术问题是什么？", "tags": ["项目难点", "问题解决", "STAR"], "difficulty": 2 },
+        { "id": "proj_009", "question": "红外模块2周从调研到交付，具体怎么做到的？", "tags": ["快速交付", "SDK集成", "红外模块"], "difficulty": 2 },
+        { "id": "proj_010", "question": "设备连接状态机怎么设计的？四个状态怎么转换？", "tags": ["状态机", "设备管理", "异常恢复"], "difficulty": 2 },
+        { "id": "proj_011", "question": "分级日志系统怎么设计的？远程上报怎么做的？", "tags": ["日志系统", "分级日志", "远程上报"], "difficulty": 2 },
+        { "id": "proj_012", "question": "交易数据安全怎么保障的？消息持久化和断点续传怎么做？", "tags": ["数据安全", "AES加密", "消息持久化", "断点续传"], "difficulty": 2 }
+      ]
+    },
+    {
+      "key": "behavior",
+      "name": "行为面试",
+      "icon": "fa-comments",
+      "questions": [
+        { "id": "beh_001", "question": "请做一下自我介绍", "tags": ["开场", "自我介绍"], "difficulty": 1 },
+        { "id": "beh_002", "question": "为什么想离开现在的公司？", "tags": ["开场", "离职原因"], "difficulty": 1 },
+        { "id": "beh_003", "question": "你的期望薪资是多少？", "tags": ["开场", "薪资"], "difficulty": 1 },
+        { "id": "beh_004", "question": "描述一次你解决复杂技术问题的经历", "tags": ["问题解决", "STAR", "技术难题"], "difficulty": 2 },
+        { "id": "beh_005", "question": "描述一次你说服团队采用你的技术方案的经历", "tags": ["沟通", "技术决策", "团队协作"], "difficulty": 2 },
+        { "id": "beh_006", "question": "你指导初级工程师有什么经验？", "tags": ["团队管理", "指导", "代码审核"], "difficulty": 2 },
+        { "id": "beh_007", "question": "你如何保持技术更新和学习？", "tags": ["学习能力", "职业发展"], "difficulty": 1 },
+        { "id": "beh_008", "question": "你的职业规划是什么？", "tags": ["职业规划", "未来方向"], "difficulty": 1 },
+        { "id": "beh_009", "question": "遇到不会的技术问题怎么办？", "tags": ["问题处理", "学习沉淀"], "difficulty": 1 },
+        { "id": "beh_010", "question": "你有什么问题想问我们的？", "tags": ["反问", "面试技巧"], "difficulty": 1 }
+      ]
+    },
+    {
+      "key": "embedded_perf",
+      "name": "嵌入式与性能优化",
+      "icon": "fa-microchip",
+      "questions": [
+        { "id": "ep_001", "question": "RAII在嵌入式开发中怎么用？举例说明资源管理的实际场景", "tags": ["RAII", "资源管理", "嵌入式", "智能指针"], "difficulty": 2 },
+        { "id": "ep_002", "question": "交叉编译遇到过哪些问题？动态库依赖冲突怎么解决的？", "tags": ["交叉编译", "ARM64", "动态库", "工具链"], "difficulty": 2 },
+        { "id": "ep_003", "question": "怎么定位C++程序的性能瓶颈？用过哪些profiling工具？", "tags": ["性能优化", "profiling", "瓶颈定位", "工具"], "difficulty": 2 },
+        { "id": "ep_004", "question": "环形缓冲区怎么设计？在你的项目里怎么用的？", "tags": ["环形缓冲区", "数据结构", "实时采集", "波形数据"], "difficulty": 2 },
+        { "id": "ep_005", "question": "线程池怎么设计？任务调度策略有哪些？", "tags": ["线程池", "任务调度", "多线程", "并发"], "difficulty": 2 },
+        { "id": "ep_006", "question": "UI刷新频率控制（控频刷新）怎么实现？为什么不能每帧都刷新？", "tags": ["控频刷新", "UI性能", "帧率控制", "实时显示"], "difficulty": 2 },
+        { "id": "ep_007", "question": "跨平台抽象层怎么设计？你的项目里怎么隔离平台差异？", "tags": ["跨平台", "抽象层", "Qt", "可移植"], "difficulty": 2 },
+        { "id": "ep_008", "question": "看门狗和异常恢复机制怎么设计？进程崩溃了怎么自动拉起？", "tags": ["看门狗", "异常恢复", "稳定性", "嵌入式"], "difficulty": 2 }
+      ]
+    },
+    {
+      "key": "vision_signal",
+      "name": "机器视觉与信号处理",
+      "icon": "fa-eye",
+      "questions": [
+        { "id": "vs_001", "question": "FFT频谱分析的原理？在你的项目里怎么用的？", "tags": ["FFT", "频谱分析", "信号处理", "实时"], "difficulty": 2 },
+        { "id": "vs_002", "question": "PRPS图谱是什么？怎么生成的？用来做什么？", "tags": ["PRPS", "局部放电", "模式识别", "图谱"], "difficulty": 3 },
+        { "id": "vs_003", "question": "Halcon和OpenCV有什么区别？你怎么选择的？", "tags": ["Halcon", "OpenCV", "机器视觉", "选型"], "difficulty": 1 },
+        { "id": "vs_004", "question": "Mark点定位算法是怎么做的？精度怎么保证达到±0.05mm？", "tags": ["Mark点", "定位算法", "Halcon", "精度"], "difficulty": 2 },
+        { "id": "vs_005", "question": "相机标定和坐标系转换怎么做？图像坐标怎么映射到物理坐标？", "tags": ["相机标定", "坐标变换", "透视变换", "标定板"], "difficulty": 2 },
+        { "id": "vs_006", "question": "图像预处理管线怎么设计？降噪/增强/二值化的顺序为什么重要？", "tags": ["图像预处理", "降噪", "二值化", "管线设计"], "difficulty": 2 }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,13 @@
 {
   "id": "proj_005",
   "question": "RK3399交叉编译环境是怎么搭建的？遇到什么问题？",
-  "tags": ["交叉编译", "嵌入式", "RK3399"],
+  "tags": [
+    "交叉编译",
+    "嵌入式",
+    "RK3399"
+  ],
   "difficulty": 2,
   "hint": "Ubuntu下安装aarch64工具链,配置Qt交叉编译,依赖库移植",
-  "answer": "思行达营业厅平台部署在RK3399(ARM aarch64)。Ubuntu 20.04上搭建：(1)安装aarch64-linux-gnu-g++工具链；(2)从目标设备拷贝sysroot(头文件+库)；(3)为Qt创建mkspec配置文件指定交叉编译器；(4)交叉编译Qt源码安装到/opt/qt5-arm；(5)Qt Creator配Kit关联编译器和sysroot。踩坑：glibc版本不匹配(gcc 9编译的在glibc 2.17上跑不了)换低版本工具链；sysroot的.so绝对路径符号链接失效需重建；OpenSSL等第三方库需单独交叉编译；Qt平台插件忘部署导致启动失败。最终用CMake toolchain文件+Docker镜像在CI上自动化。",
+  "answer": "思行达营业厅平台部署在RK3399(ARM aarch64)。Ubuntu 20.04上搭建：(1)安装aarch64-linux-gnu-g++工具链；(2)从目标设备拷贝**sysroot**(头文件+库)；(3)为Qt创建mkspec配置文件指定**交叉编译**器；(4)交叉编译Qt源码安装到/opt/qt5-arm；(5)Qt Creator配Kit关联编译器和sysroot。踩坑：glibc版本不匹配(gcc 9编译的在glibc 2.17上跑不了)换低版本工具链；sysroot的.so绝对路径符号链接失效需重建；OpenSSL等第三方库需单独交叉编译；Qt平台插件忘部署导致启动失败。最终用CMake toolchain文件+Docker镜像在CI上自动化。",
   "source": "深度问题_交叉编译.md"
 }

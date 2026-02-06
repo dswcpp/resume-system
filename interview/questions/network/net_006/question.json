@@ -1,9 +1,14 @@
 {
   "id": "net_006",
   "question": "MQTT协议的模型、QoS等级和应用场景？",
-  "tags": ["MQTT", "发布订阅", "QoS", "IoT"],
+  "tags": [
+    "MQTT",
+    "发布订阅",
+    "QoS",
+    "IoT"
+  ],
   "difficulty": 2,
   "hint": "Broker+Client发布订阅,QoS 0/1/2",
-  "answer": "MQTT是轻量级发布/订阅协议，专为低带宽、不稳定网络和资源受限设备设计。架构由Broker(消息代理)和Client(发布者/订阅者)组成，客户端不直接通信，通过Broker按Topic路由。QoS三个等级：QoS 0最多一次(fire-and-forget)，不确认可能丢失；QoS 1至少一次，Broker回PUBACK确认，可能重复；QoS 2恰好一次，四步握手保证不丢不重但开销最大。Topic支持层级结构和通配符(+单层/#多层)。还有遗嘱消息(LWT)机制：客户端异常断开时Broker自动发布预设消息，用于检测设备离线。实际应用中根据数据重要性选QoS：普通状态上报QoS 0，告警消息QoS 1，关键控制指令QoS 2。",
+  "answer": "MQTT是轻量级**发布/订阅**协议，专为低带宽、不稳定网络和资源受限设备设计。架构由Broker(消息代理)和Client(发布者/订阅者)组成，客户端不直接通信，通过Broker按**Topic**路由。**QoS**三个等级：QoS 0最多一次(fire-and-forget)，不确认可能丢失；QoS 1至少一次，Broker回PUBACK确认，可能重复；QoS 2恰好一次，四步握手保证不丢不重但开销最大。Topic支持层级结构和通配符(+单层/#多层)。还有遗嘱消息(LWT)机制：客户端异常断开时Broker自动发布预设消息，用于检测设备离线。实际应用中根据数据重要性选QoS：普通状态上报QoS 0，告警消息QoS 1，关键控制指令QoS 2。",
   "source": "网络通信面试回答模板.md"
 }

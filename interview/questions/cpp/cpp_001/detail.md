@@ -5,31 +5,25 @@
 C++多态的核心机制是**虚函数表(vtable)** 和**虚指针(vptr)**。编译器为每个含虚函数的类生成一张函数指针表，对象内隐含一个指向该表的指针，运行时通过这个间接层实现动态分派。
 
 ```mermaid
-classDiagram
-    class Base {
-        +vptr : vtable*
-        +func1() virtual
-        +func2() virtual
-        +~Base() virtual
-    }
-    class Derived {
-        +vptr : vtable*
-        +func1() override
-        +func2() override
-        +~Derived() virtual
-    }
-    Base <|-- Derived
-
-    class Base_vtable {
-        [0] Base::func1
-        [1] Base::func2
-        [2] Base::~Base
-    }
-    class Derived_vtable {
-        [0] Derived::func1
-        [1] Derived::func2
-        [2] Derived::~Derived
-    }
+graph LR
+    subgraph BaseObj["Base对象"]
+        bvptr["vptr"]
+    end
+    subgraph DerivedObj["Derived对象"]
+        dvptr["vptr"]
+    end
+    subgraph BVT["Base_vtable"]
+        bf1["slot0 → Base::func1"]
+        bf2["slot1 → Base::func2"]
+        bf3["slot2 → Base::dtor"]
+    end
+    subgraph DVT["Derived_vtable"]
+        df1["slot0 → Derived::func1"]
+        df2["slot1 → Derived::func2"]
+        df3["slot2 → Derived::dtor"]
+    end
+    bvptr --> BVT
+    dvptr --> DVT
 ```
 
 **核心概念：**
@@ -68,16 +62,16 @@ TEV、UHF、AE各自继承并实现，框架层只依赖基类指针。模块注
 ```mermaid
 sequenceDiagram
     participant Caller as 调用方
-    participant Object as 对象内存
-    participant VTable as 虚函数表
-    participant Function as 实际函数
+    participant Obj as 对象内存
+    participant VT as 虚函数表
+    participant Func as 实际函数
 
-    Caller->>Object: base_ptr->func()
-    Object->>Object: 读取vptr (对象起始位置)
-    Object->>VTable: vptr指向vtable
-    VTable->>VTable: 查找func对应槽位[index]
-    VTable->>Function: 取出函数指针
-    Function->>Caller: 执行并返回
+    Caller->>Obj: base_ptr->func()
+    Obj->>Obj: 读取vptr
+    Obj->>VT: vptr指向vtable
+    VT->>VT: 查找func槽位
+    VT->>Func: 取出函数指针
+    Func->>Caller: 执行并返回
 ```
 
 ### vptr在内存中的位置
